@@ -1,4 +1,61 @@
 {
   "source": "src/core/editor/commands.rs",
-  "items": []
+  "items": [
+    {
+      "name": "Command",
+      "kind": "trait",
+      "signature": "pub trait Command: std::fmt::Debug",
+      "line": 6,
+      "doc": "A reversible editing command."
+    },
+    {
+      "name": "CommandError",
+      "kind": "enum",
+      "signature": "pub enum CommandError",
+      "line": 17,
+      "doc": "Errors from command execution."
+    },
+    {
+      "name": "InsertTextCommand",
+      "kind": "struct",
+      "signature": "pub struct InsertTextCommand",
+      "line": 46,
+      "doc": "Insert text at a byte offset in the serialized Markdown."
+    },
+    {
+      "name": "DeleteRangeCommand",
+      "kind": "struct",
+      "signature": "pub struct DeleteRangeCommand",
+      "line": 89,
+      "doc": "Delete a byte range from the serialized Markdown."
+    },
+    {
+      "name": "new",
+      "kind": "fn",
+      "signature": "pub fn new(start: usize, end: usize) -> Self",
+      "line": 100,
+      "doc": "Create a new delete range command."
+    },
+    {
+      "name": "ReplaceRangeCommand",
+      "kind": "struct",
+      "signature": "pub struct ReplaceRangeCommand",
+      "line": 145,
+      "doc": "Replace a byte range in the serialized Markdown."
+    },
+    {
+      "name": "new",
+      "kind": "fn",
+      "signature": "pub fn new(start: usize, end: usize, replacement: String) -> Self",
+      "line": 158,
+      "doc": "Create a new replace range command."
+    },
+    {
+      "name": "InsertBlockCommand",
+      "kind": "struct",
+      "signature": "pub struct InsertBlockCommand",
+      "line": 213,
+      "doc": "Insert a block at a specific index in the document."
+    }
+  ]
 }

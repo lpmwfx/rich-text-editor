@@ -1,23 +1,23 @@
 # Documentation Index
 
-Generated: 2026-03-14T15:39:54.057112600+01:00  
+Generated: 2026-03-14T15:50:30.175266800+01:00  
 Project: `project`  
-Coverage: **49/50** items documented (**98%**) — ⚠ **1 undocumented**
+Coverage: **74/75** items documented (**98%**) — ⚠ **1 undocumented**
 
 ## Files
 
 | Source File | Items | Undocumented |
 |---|---|---|
 | [build.rs](man/build.md) | 0 | — |
-| [src/adapter/editor_state_adp.rs](man/src/adapter/editor_state_adp.md) | 1 | ✓ |
+| [src/adapter/editor_state_adp.rs](man/src/adapter/editor_state_adp.md) | 8 | ✓ |
 | [src/adapter/mod.rs](man/src/adapter/mod.md) | 1 | ✓ |
 | [src/core/document/frontmatter.rs](man/src/core/document/frontmatter.md) | 2 | ✓ |
 | [src/core/document/mod.rs](man/src/core/document/mod.md) | 15 | ✓ |
 | [src/core/document/parser.rs](man/src/core/document/parser.md) | 1 | ✓ |
 | [src/core/document/serializer.rs](man/src/core/document/serializer.md) | 1 | ✓ |
-| [src/core/editor/commands.rs](man/src/core/editor/commands.md) | 0 | — |
+| [src/core/editor/commands.rs](man/src/core/editor/commands.md) | 8 | ✓ |
 | [src/core/editor/mod.rs](man/src/core/editor/mod.md) | 2 | ✓ |
-| [src/core/editor/undo.rs](man/src/core/editor/undo.md) | 0 | — |
+| [src/core/editor/undo.rs](man/src/core/editor/undo.md) | 10 | ✓ |
 | [src/core/mod.rs](man/src/core/mod.md) | 2 | ✓ |
 | [src/gateway/mod.rs](man/src/gateway/mod.md) | 0 | — |
 | [src/lib.rs](man/src/lib.md) | 6 | ✓ |
@@ -40,7 +40,14 @@ Coverage: **49/50** items documented (**98%**) — ⚠ **1 undocumented**
 
 | Item | Kind | Source | Line | Documented |
 |---|---|---|---|---|
-| `EditorState` | struct | src/adapter/editor_state_adp.rs | 4 | ✓ |
+| `EditorState` | struct | src/adapter/editor_state_adp.rs | 11 | ✓ |
+| `new` | fn | src/adapter/editor_state_adp.rs | 26 | ✓ |
+| `from_markdown` | fn | src/adapter/editor_state_adp.rs | 37 | ✓ |
+| `apply` | fn | src/adapter/editor_state_adp.rs | 48 | ✓ |
+| `undo` | fn | src/adapter/editor_state_adp.rs | 54 | ✓ |
+| `redo` | fn | src/adapter/editor_state_adp.rs | 60 | ✓ |
+| `to_markdown` | fn | src/adapter/editor_state_adp.rs | 66 | ✓ |
+| `selected_text` | fn | src/adapter/editor_state_adp.rs | 71 | ✓ |
 | `editor_state_adp` | mod | src/adapter/mod.rs | 2 | ✓ |
 | `extract` | fn | src/core/document/frontmatter.rs | 7 | ✓ |
 | `format` | fn | src/core/document/frontmatter.rs | 47 | ✓ |
@@ -61,8 +68,26 @@ Coverage: **49/50** items documented (**98%**) — ⚠ **1 undocumented**
 | `plain_text` | fn | src/core/document/mod.rs | 158 | ✓ |
 | `parse` | fn | src/core/document/parser.rs | 8 | ✓ |
 | `serialize` | fn | src/core/document/serializer.rs | 6 | ✓ |
+| `Command` | trait | src/core/editor/commands.rs | 6 | ✓ |
+| `CommandError` | enum | src/core/editor/commands.rs | 17 | ✓ |
+| `InsertTextCommand` | struct | src/core/editor/commands.rs | 46 | ✓ |
+| `DeleteRangeCommand` | struct | src/core/editor/commands.rs | 89 | ✓ |
+| `new` | fn | src/core/editor/commands.rs | 100 | ✓ |
+| `ReplaceRangeCommand` | struct | src/core/editor/commands.rs | 145 | ✓ |
+| `new` | fn | src/core/editor/commands.rs | 158 | ✓ |
+| `InsertBlockCommand` | struct | src/core/editor/commands.rs | 213 | ✓ |
 | `commands` | mod | src/core/editor/mod.rs | 2 | ✓ |
 | `undo` | mod | src/core/editor/mod.rs | 4 | ✓ |
+| `UndoStack` | struct | src/core/editor/undo.rs | 9 | ✓ |
+| `new` | fn | src/core/editor/undo.rs | 18 | ✓ |
+| `apply` | fn | src/core/editor/undo.rs | 27 | ✓ |
+| `undo` | fn | src/core/editor/undo.rs | 50 | ✓ |
+| `redo` | fn | src/core/editor/undo.rs | 60 | ✓ |
+| `can_undo` | fn | src/core/editor/undo.rs | 70 | ✓ |
+| `can_redo` | fn | src/core/editor/undo.rs | 75 | ✓ |
+| `undo_description` | fn | src/core/editor/undo.rs | 80 | ✓ |
+| `depth` | fn | src/core/editor/undo.rs | 89 | ✓ |
+| `clear` | fn | src/core/editor/undo.rs | 94 | ✓ |
 | `document` | mod | src/core/mod.rs | 2 | ✓ |
 | `editor` | mod | src/core/mod.rs | 4 | ✓ |
 | `ui` | mod | src/lib.rs | 2 | ✓ |

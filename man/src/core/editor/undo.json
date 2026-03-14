@@ -1,4 +1,75 @@
 {
   "source": "src/core/editor/undo.rs",
-  "items": []
+  "items": [
+    {
+      "name": "UndoStack",
+      "kind": "struct",
+      "signature": "pub struct UndoStack",
+      "line": 9,
+      "doc": "Undo/redo stack. All document mutations must go through apply()."
+    },
+    {
+      "name": "new",
+      "kind": "fn",
+      "signature": "pub fn new() -> Self",
+      "line": 18,
+      "doc": "Create a new empty undo stack."
+    },
+    {
+      "name": "apply",
+      "kind": "fn",
+      "signature": "pub fn apply( &mut self, cmd: Box<dyn Command>, doc: &mut Document, ) -> Result<(), CommandError>",
+      "line": 27,
+      "doc": "Apply a command to the document and push it to the undo stack.\nClears any redo history beyond the current cursor."
+    },
+    {
+      "name": "undo",
+      "kind": "fn",
+      "signature": "pub fn undo(&mut self, doc: &mut Document) -> Result<bool, CommandError>",
+      "line": 50,
+      "doc": "Undo the last command. Returns true if an undo was performed."
+    },
+    {
+      "name": "redo",
+      "kind": "fn",
+      "signature": "pub fn redo(&mut self, doc: &mut Document) -> Result<bool, CommandError>",
+      "line": 60,
+      "doc": "Redo the last undone command. Returns true if a redo was performed."
+    },
+    {
+      "name": "can_undo",
+      "kind": "fn",
+      "signature": "pub fn can_undo(&self) -> bool",
+      "line": 70,
+      "doc": "Check if undo is available."
+    },
+    {
+      "name": "can_redo",
+      "kind": "fn",
+      "signature": "pub fn can_redo(&self) -> bool",
+      "line": 75,
+      "doc": "Check if redo is available."
+    },
+    {
+      "name": "undo_description",
+      "kind": "fn",
+      "signature": "pub fn undo_description(&self) -> Option<&str>",
+      "line": 80,
+      "doc": "Description of the command that would be undone."
+    },
+    {
+      "name": "depth",
+      "kind": "fn",
+      "signature": "pub fn depth(&self) -> usize",
+      "line": 89,
+      "doc": "Number of commands in the history."
+    },
+    {
+      "name": "clear",
+      "kind": "fn",
+      "signature": "pub fn clear(&mut self)",
+      "line": 94,
+      "doc": "Clear all history."
+    }
+  ]
 }

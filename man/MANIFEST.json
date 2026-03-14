@@ -1,5 +1,5 @@
 {
-  "generated": "2026-03-14T15:39:54.057112600+01:00",
+  "generated": "2026-03-14T15:50:30.175266800+01:00",
   "project": "project",
   "files": [
     {
@@ -11,7 +11,7 @@
     {
       "source": "src/adapter/editor_state_adp.rs",
       "man_path": "man/src/adapter/editor_state_adp.json",
-      "item_count": 1,
+      "item_count": 8,
       "undoc_count": 0
     },
     {
@@ -47,7 +47,7 @@
     {
       "source": "src/core/editor/commands.rs",
       "man_path": "man/src/core/editor/commands.json",
-      "item_count": 0,
+      "item_count": 8,
       "undoc_count": 0
     },
     {
@@ -59,7 +59,7 @@
     {
       "source": "src/core/editor/undo.rs",
       "man_path": "man/src/core/editor/undo.json",
-      "item_count": 0,
+      "item_count": 10,
       "undoc_count": 0
     },
     {
@@ -170,7 +170,56 @@
       "name": "EditorState",
       "kind": "struct",
       "source": "src/adapter/editor_state_adp.rs",
-      "line": 4,
+      "line": 11,
+      "documented": true
+    },
+    {
+      "name": "new",
+      "kind": "fn",
+      "source": "src/adapter/editor_state_adp.rs",
+      "line": 26,
+      "documented": true
+    },
+    {
+      "name": "from_markdown",
+      "kind": "fn",
+      "source": "src/adapter/editor_state_adp.rs",
+      "line": 37,
+      "documented": true
+    },
+    {
+      "name": "apply",
+      "kind": "fn",
+      "source": "src/adapter/editor_state_adp.rs",
+      "line": 48,
+      "documented": true
+    },
+    {
+      "name": "undo",
+      "kind": "fn",
+      "source": "src/adapter/editor_state_adp.rs",
+      "line": 54,
+      "documented": true
+    },
+    {
+      "name": "redo",
+      "kind": "fn",
+      "source": "src/adapter/editor_state_adp.rs",
+      "line": 60,
+      "documented": true
+    },
+    {
+      "name": "to_markdown",
+      "kind": "fn",
+      "source": "src/adapter/editor_state_adp.rs",
+      "line": 66,
+      "documented": true
+    },
+    {
+      "name": "selected_text",
+      "kind": "fn",
+      "source": "src/adapter/editor_state_adp.rs",
+      "line": 71,
       "documented": true
     },
     {
@@ -314,6 +363,62 @@
       "documented": true
     },
     {
+      "name": "Command",
+      "kind": "trait",
+      "source": "src/core/editor/commands.rs",
+      "line": 6,
+      "documented": true
+    },
+    {
+      "name": "CommandError",
+      "kind": "enum",
+      "source": "src/core/editor/commands.rs",
+      "line": 17,
+      "documented": true
+    },
+    {
+      "name": "InsertTextCommand",
+      "kind": "struct",
+      "source": "src/core/editor/commands.rs",
+      "line": 46,
+      "documented": true
+    },
+    {
+      "name": "DeleteRangeCommand",
+      "kind": "struct",
+      "source": "src/core/editor/commands.rs",
+      "line": 89,
+      "documented": true
+    },
+    {
+      "name": "new",
+      "kind": "fn",
+      "source": "src/core/editor/commands.rs",
+      "line": 100,
+      "documented": true
+    },
+    {
+      "name": "ReplaceRangeCommand",
+      "kind": "struct",
+      "source": "src/core/editor/commands.rs",
+      "line": 145,
+      "documented": true
+    },
+    {
+      "name": "new",
+      "kind": "fn",
+      "source": "src/core/editor/commands.rs",
+      "line": 158,
+      "documented": true
+    },
+    {
+      "name": "InsertBlockCommand",
+      "kind": "struct",
+      "source": "src/core/editor/commands.rs",
+      "line": 213,
+      "documented": true
+    },
+    {
       "name": "commands",
       "kind": "mod",
       "source": "src/core/editor/mod.rs",
@@ -325,6 +430,76 @@
       "kind": "mod",
       "source": "src/core/editor/mod.rs",
       "line": 4,
+      "documented": true
+    },
+    {
+      "name": "UndoStack",
+      "kind": "struct",
+      "source": "src/core/editor/undo.rs",
+      "line": 9,
+      "documented": true
+    },
+    {
+      "name": "new",
+      "kind": "fn",
+      "source": "src/core/editor/undo.rs",
+      "line": 18,
+      "documented": true
+    },
+    {
+      "name": "apply",
+      "kind": "fn",
+      "source": "src/core/editor/undo.rs",
+      "line": 27,
+      "documented": true
+    },
+    {
+      "name": "undo",
+      "kind": "fn",
+      "source": "src/core/editor/undo.rs",
+      "line": 50,
+      "documented": true
+    },
+    {
+      "name": "redo",
+      "kind": "fn",
+      "source": "src/core/editor/undo.rs",
+      "line": 60,
+      "documented": true
+    },
+    {
+      "name": "can_undo",
+      "kind": "fn",
+      "source": "src/core/editor/undo.rs",
+      "line": 70,
+      "documented": true
+    },
+    {
+      "name": "can_redo",
+      "kind": "fn",
+      "source": "src/core/editor/undo.rs",
+      "line": 75,
+      "documented": true
+    },
+    {
+      "name": "undo_description",
+      "kind": "fn",
+      "source": "src/core/editor/undo.rs",
+      "line": 80,
+      "documented": true
+    },
+    {
+      "name": "depth",
+      "kind": "fn",
+      "source": "src/core/editor/undo.rs",
+      "line": 89,
+      "documented": true
+    },
+    {
+      "name": "clear",
+      "kind": "fn",
+      "source": "src/core/editor/undo.rs",
+      "line": 94,
       "documented": true
     },
     {

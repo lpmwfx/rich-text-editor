@@ -5,8 +5,57 @@
       "name": "EditorState",
       "kind": "struct",
       "signature": "pub struct EditorState",
-      "line": 4,
-      "doc": "Central editor state — the adapter's state owner.\nHolds document, cursor, selection, and coordinates all layers."
+      "line": 11,
+      "doc": "The adapter's central state — owns the document and coordinates all layers."
+    },
+    {
+      "name": "new",
+      "kind": "fn",
+      "signature": "pub fn new() -> Self",
+      "line": 26,
+      "doc": "Create a new editor state with an empty document."
+    },
+    {
+      "name": "from_markdown",
+      "kind": "fn",
+      "signature": "pub fn from_markdown(input: &str) -> Self",
+      "line": 37,
+      "doc": "Create an editor state from a Markdown string."
+    },
+    {
+      "name": "apply",
+      "kind": "fn",
+      "signature": "pub fn apply(&mut self, cmd: Box<dyn Command>) -> Result<(), CommandError>",
+      "line": 48,
+      "doc": "Apply a command to the document via the undo stack."
+    },
+    {
+      "name": "undo",
+      "kind": "fn",
+      "signature": "pub fn undo(&mut self) -> Result<bool, CommandError>",
+      "line": 54,
+      "doc": "Undo the last command."
+    },
+    {
+      "name": "redo",
+      "kind": "fn",
+      "signature": "pub fn redo(&mut self) -> Result<bool, CommandError>",
+      "line": 60,
+      "doc": "Redo the last undone command."
+    },
+    {
+      "name": "to_markdown",
+      "kind": "fn",
+      "signature": "pub fn to_markdown(&self) -> String",
+      "line": 66,
+      "doc": "Get the document as a Markdown string."
+    },
+    {
+      "name": "selected_text",
+      "kind": "fn",
+      "signature": "pub fn selected_text(&self) -> Option<String>",
+      "line": 71,
+      "doc": "Get the selected text, if any."
     }
   ]
 }
