@@ -27,7 +27,10 @@
       "Bash(timeout:*)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(cargo test:*)"
+      "Bash(cargo test:*)",
+      "Bash(git restore:*)",
+      "Bash(cargo doc:*)",
+      "Bash(git reset:*)"
     ]
   },
   "enableAllProjectMcpServers": true,
