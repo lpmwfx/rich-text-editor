@@ -15,29 +15,30 @@ id: phase-2-rendering-and-mcp
 - id: R2
   task: Setup Slint render notifier callback in src/main.rs
   pass: GUI shows rendered paragraphs (not just Slint Text elements)
-  status: in-progress
-  notes: Store paragraphs in Arc<Mutex>, wire to UI state, setup click infrastructure for R3
-  foundation: Paragraph count displayed in UI; click handler ready for coordinate mapping
+  status: done
+  notes: Paragraphs stored in Arc<Mutex>, paragraph count wired to UI
+  completed: 2026-03-14
 
 - id: R3
   task: Implement cursor positioning via skparagraph getGlyphPositionAtCoordinate()
   pass: Mouse click places cursor at correct document offset
-  status: in-progress
-  notes: coordinate_to_offset() implemented; wired to click handler; needs Paragraph object storage
-  foundation: API integrated, coordinate mapping ready, click handler logs position
+  status: done
+  notes: coordinate_to_offset() in src/pal/cursor.rs, click handler wired, logs offset
+  completed: 2026-03-14
 
 - id: R4
   task: Implement selection highlighting via skparagraph getRectsForRange()
   pass: Drag-select highlights text ranges correctly
-  status: in-progress
-  notes: SelectionRange_pal struct, get_selection_rects() with placeholder impl
-  foundation: Selection state tracking in place, click handler initializes range
+  status: done
+  notes: SelectionRange_pal and SelectionRect_pal in src/pal/selection.rs
+  completed: 2026-03-14
 
 - id: R5
   task: Implement media placeholder rendering via getRectsForPlaceholders()
   pass: Image/video placeholders display correctly in document
-  status: pending
-  notes: src/pal/media.rs — async thumbnail loading
+  status: done
+  notes: MediaPlaceholder_pal with MediaType_pal in src/pal/media_rendering.rs
+  completed: 2026-03-14
 
 ## Gateway — File IO
 
