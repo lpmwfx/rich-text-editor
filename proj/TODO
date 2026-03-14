@@ -22,8 +22,9 @@ id: phase-2-rendering-and-mcp
 - id: R3
   task: Implement cursor positioning via skparagraph getGlyphPositionAtCoordinate()
   pass: Mouse click places cursor at correct document offset
-  status: pending
-  notes: src/pal/cursor.rs — integrate real skparagraph APIs
+  status: in-progress
+  notes: coordinate_to_offset() implemented; wired to click handler; needs Paragraph object storage
+  foundation: API integrated, coordinate mapping ready, click handler logs position
 
 - id: R4
   task: Implement selection highlighting via skparagraph getRectsForRange()
