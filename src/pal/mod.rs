@@ -9,6 +9,6 @@ pub mod media;
 /// Media placeholder rendering via getRectsForPlaceholders().
 pub mod media_rendering;
 
-pub use paragraph::{build_paragraphs, StyledParagraph_pal};
+pub use paragraph::{build_paragraphs, build_renderable_paragraphs, RenderableParagraph, StyledParagraph_pal};
 pub use selection::SelectionRange_pal;
 pub use media_rendering::MediaPlaceholder_pal;

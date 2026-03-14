@@ -6,6 +6,8 @@ pub mod adapter;
 pub mod core;
 /// PAL layer — platform abstraction, Skia/skparagraph rendering.
 pub mod pal;
+/// Render layer — convert Skia output to displayable image buffers.
+pub mod render;
 /// Gateway layer — IO adapter, file and media loading.
 pub mod gateway;
 /// Shared layer — cross-cutting constants, errors, types.
