@@ -7,7 +7,8 @@
       "Bash(wc:*)",
       "Bash(cd:*)",
       "Bash(cargo install:*)",
-      "Bash(echo:*)"
+      "Bash(echo:*)",
+      "mcp__rulestools__check_staged"
     ]
   }
 }

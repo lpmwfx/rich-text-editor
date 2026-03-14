@@ -1,0 +1,26 @@
+{
+  "source": "src/shared/sizes.rs",
+  "items": [
+    {
+      "name": "PARAGRAPH_CACHE_CAP",
+      "kind": "const",
+      "signature": "pub const PARAGRAPH_CACHE_CAP: usize = 256;",
+      "line": 2,
+      "doc": "Default paragraph cache capacity (number of paragraphs)."
+    },
+    {
+      "name": "THUMBNAIL_WIDTH",
+      "kind": "const",
+      "signature": "pub const THUMBNAIL_WIDTH: u32 = 320;",
+      "line": 5,
+      "doc": "Default media thumbnail width in pixels."
+    },
+    {
+      "name": "THUMBNAIL_HEIGHT",
+      "kind": "const",
+      "signature": "pub const THUMBNAIL_HEIGHT: u32 = 240;",
+      "line": 8,
+      "doc": "Default media thumbnail height in pixels."
+    }
+  ]
+}

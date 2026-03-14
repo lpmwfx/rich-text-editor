@@ -1,0 +1,19 @@
+{
+  "source": "src/ui/mod.rs",
+  "items": [
+    {
+      "name": "mcp",
+      "kind": "mod",
+      "signature": "pub mod mcp;",
+      "line": 2,
+      "doc": "MCP server — AI interface surface."
+    },
+    {
+      "name": "gui",
+      "kind": "mod",
+      "signature": "pub mod gui;",
+      "line": 4,
+      "doc": "GUI — Slint desktop interface surface."
+    }
+  ]
+}

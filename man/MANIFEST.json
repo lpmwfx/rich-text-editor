@@ -1,5 +1,5 @@
 {
-  "generated": "2026-03-14T13:16:28.960073700+01:00",
+  "generated": "2026-03-14T14:19:32.404939200+01:00",
   "project": "project",
   "files": [
     {
@@ -9,44 +9,68 @@
       "undoc_count": 0
     },
     {
-      "source": "src/document/frontmatter.rs",
-      "man_path": "man/src/document/frontmatter.json",
+      "source": "src/adapter/editor_state_adp.rs",
+      "man_path": "man/src/adapter/editor_state_adp.json",
+      "item_count": 1,
+      "undoc_count": 0
+    },
+    {
+      "source": "src/adapter/mod.rs",
+      "man_path": "man/src/adapter/mod.json",
+      "item_count": 1,
+      "undoc_count": 0
+    },
+    {
+      "source": "src/core/document/frontmatter.rs",
+      "man_path": "man/src/core/document/frontmatter.json",
       "item_count": 0,
       "undoc_count": 0
     },
     {
-      "source": "src/document/mod.rs",
-      "man_path": "man/src/document/mod.json",
+      "source": "src/core/document/mod.rs",
+      "man_path": "man/src/core/document/mod.json",
       "item_count": 7,
       "undoc_count": 0
     },
     {
-      "source": "src/document/parser.rs",
-      "man_path": "man/src/document/parser.json",
+      "source": "src/core/document/parser.rs",
+      "man_path": "man/src/core/document/parser.json",
       "item_count": 0,
       "undoc_count": 0
     },
     {
-      "source": "src/document/serializer.rs",
-      "man_path": "man/src/document/serializer.json",
+      "source": "src/core/document/serializer.rs",
+      "man_path": "man/src/core/document/serializer.json",
       "item_count": 0,
       "undoc_count": 0
     },
     {
-      "source": "src/editor/commands.rs",
-      "man_path": "man/src/editor/commands.json",
+      "source": "src/core/editor/commands.rs",
+      "man_path": "man/src/core/editor/commands.json",
       "item_count": 0,
       "undoc_count": 0
     },
     {
-      "source": "src/editor/mod.rs",
-      "man_path": "man/src/editor/mod.json",
-      "item_count": 3,
+      "source": "src/core/editor/mod.rs",
+      "man_path": "man/src/core/editor/mod.json",
+      "item_count": 2,
       "undoc_count": 0
     },
     {
-      "source": "src/editor/undo.rs",
-      "man_path": "man/src/editor/undo.json",
+      "source": "src/core/editor/undo.rs",
+      "man_path": "man/src/core/editor/undo.json",
+      "item_count": 0,
+      "undoc_count": 0
+    },
+    {
+      "source": "src/core/mod.rs",
+      "man_path": "man/src/core/mod.json",
+      "item_count": 2,
+      "undoc_count": 0
+    },
+    {
+      "source": "src/gateway/mod.rs",
+      "man_path": "man/src/gateway/mod.json",
       "item_count": 0,
       "undoc_count": 0
     },
@@ -63,69 +87,75 @@
       "undoc_count": 0
     },
     {
-      "source": "src/mcp/mod.rs",
-      "man_path": "man/src/mcp/mod.json",
+      "source": "src/pal/cursor.rs",
+      "man_path": "man/src/pal/cursor.json",
       "item_count": 0,
       "undoc_count": 0
     },
     {
-      "source": "src/media/mod.rs",
-      "man_path": "man/src/media/mod.json",
+      "source": "src/pal/media.rs",
+      "man_path": "man/src/pal/media.json",
       "item_count": 0,
       "undoc_count": 0
     },
     {
-      "source": "src/renderer/cursor.rs",
-      "man_path": "man/src/renderer/cursor.json",
-      "item_count": 0,
-      "undoc_count": 0
-    },
-    {
-      "source": "src/renderer/media.rs",
-      "man_path": "man/src/renderer/media.json",
-      "item_count": 0,
-      "undoc_count": 0
-    },
-    {
-      "source": "src/renderer/mod.rs",
-      "man_path": "man/src/renderer/mod.json",
+      "source": "src/pal/mod.rs",
+      "man_path": "man/src/pal/mod.json",
       "item_count": 3,
       "undoc_count": 0
     },
     {
-      "source": "src/renderer/paragraph.rs",
-      "man_path": "man/src/renderer/paragraph.json",
+      "source": "src/pal/paragraph.rs",
+      "man_path": "man/src/pal/paragraph.json",
       "item_count": 0,
       "undoc_count": 0
     },
     {
-      "source": "src/state/durations.rs",
-      "man_path": "man/src/state/durations.json",
+      "source": "src/shared/durations.rs",
+      "man_path": "man/src/shared/durations.json",
       "item_count": 2,
       "undoc_count": 0
     },
     {
-      "source": "src/state/limits.rs",
-      "man_path": "man/src/state/limits.json",
+      "source": "src/shared/limits.rs",
+      "man_path": "man/src/shared/limits.json",
       "item_count": 2,
       "undoc_count": 0
     },
     {
-      "source": "src/state/mod.rs",
-      "man_path": "man/src/state/mod.json",
+      "source": "src/shared/mod.rs",
+      "man_path": "man/src/shared/mod.json",
       "item_count": 4,
       "undoc_count": 0
     },
     {
-      "source": "src/state/paths.rs",
-      "man_path": "man/src/state/paths.json",
+      "source": "src/shared/paths.rs",
+      "man_path": "man/src/shared/paths.json",
       "item_count": 2,
       "undoc_count": 0
     },
     {
-      "source": "src/state/sizes.rs",
-      "man_path": "man/src/state/sizes.json",
+      "source": "src/shared/sizes.rs",
+      "man_path": "man/src/shared/sizes.json",
       "item_count": 3,
+      "undoc_count": 0
+    },
+    {
+      "source": "src/ui/gui/mod.rs",
+      "man_path": "man/src/ui/gui/mod.json",
+      "item_count": 0,
+      "undoc_count": 0
+    },
+    {
+      "source": "src/ui/mcp/mod.rs",
+      "man_path": "man/src/ui/mcp/mod.json",
+      "item_count": 0,
+      "undoc_count": 0
+    },
+    {
+      "source": "src/ui/mod.rs",
+      "man_path": "man/src/ui/mod.json",
+      "item_count": 2,
       "undoc_count": 0
     },
     {
@@ -137,112 +167,133 @@
   ],
   "all_items": [
     {
+      "name": "EditorState",
+      "kind": "struct",
+      "source": "src/adapter/editor_state_adp.rs",
+      "line": 4,
+      "documented": true
+    },
+    {
+      "name": "editor_state_adp",
+      "kind": "mod",
+      "source": "src/adapter/mod.rs",
+      "line": 2,
+      "documented": true
+    },
+    {
       "name": "parser",
       "kind": "mod",
-      "source": "src/document/mod.rs",
+      "source": "src/core/document/mod.rs",
       "line": 2,
       "documented": true
     },
     {
       "name": "serializer",
       "kind": "mod",
-      "source": "src/document/mod.rs",
+      "source": "src/core/document/mod.rs",
       "line": 4,
       "documented": true
     },
     {
       "name": "frontmatter",
       "kind": "mod",
-      "source": "src/document/mod.rs",
+      "source": "src/core/document/mod.rs",
       "line": 6,
       "documented": true
     },
     {
       "name": "Document",
       "kind": "struct",
-      "source": "src/document/mod.rs",
+      "source": "src/core/document/mod.rs",
       "line": 10,
       "documented": true
     },
     {
       "name": "Frontmatter",
       "kind": "struct",
-      "source": "src/document/mod.rs",
+      "source": "src/core/document/mod.rs",
       "line": 19,
       "documented": true
     },
     {
       "name": "Block",
       "kind": "enum",
-      "source": "src/document/mod.rs",
+      "source": "src/core/document/mod.rs",
       "line": 26,
       "documented": true
     },
     {
       "name": "Inline",
       "kind": "enum",
-      "source": "src/document/mod.rs",
+      "source": "src/core/document/mod.rs",
       "line": 67,
       "documented": true
     },
     {
       "name": "commands",
       "kind": "mod",
-      "source": "src/editor/mod.rs",
+      "source": "src/core/editor/mod.rs",
       "line": 2,
       "documented": true
     },
     {
       "name": "undo",
       "kind": "mod",
-      "source": "src/editor/mod.rs",
+      "source": "src/core/editor/mod.rs",
       "line": 4,
-      "documented": true
-    },
-    {
-      "name": "EditorState",
-      "kind": "struct",
-      "source": "src/editor/mod.rs",
-      "line": 8,
       "documented": true
     },
     {
       "name": "document",
       "kind": "mod",
-      "source": "src/lib.rs",
+      "source": "src/core/mod.rs",
       "line": 2,
       "documented": true
     },
     {
       "name": "editor",
       "kind": "mod",
+      "source": "src/core/mod.rs",
+      "line": 4,
+      "documented": true
+    },
+    {
+      "name": "ui",
+      "kind": "mod",
+      "source": "src/lib.rs",
+      "line": 2,
+      "documented": true
+    },
+    {
+      "name": "adapter",
+      "kind": "mod",
       "source": "src/lib.rs",
       "line": 4,
       "documented": true
     },
     {
-      "name": "renderer",
+      "name": "core",
       "kind": "mod",
       "source": "src/lib.rs",
       "line": 6,
       "documented": true
     },
     {
-      "name": "media",
+      "name": "pal",
       "kind": "mod",
       "source": "src/lib.rs",
       "line": 8,
       "documented": true
     },
     {
-      "name": "mcp",
+      "name": "gateway",
       "kind": "mod",
       "source": "src/lib.rs",
       "line": 10,
       "documented": true
     },
     {
-      "name": "state",
+      "name": "shared",
       "kind": "mod",
       "source": "src/lib.rs",
       "line": 12,
@@ -251,113 +302,127 @@
     {
       "name": "paragraph",
       "kind": "mod",
-      "source": "src/renderer/mod.rs",
+      "source": "src/pal/mod.rs",
       "line": 2,
       "documented": true
     },
     {
       "name": "cursor",
       "kind": "mod",
-      "source": "src/renderer/mod.rs",
+      "source": "src/pal/mod.rs",
       "line": 4,
       "documented": true
     },
     {
       "name": "media",
       "kind": "mod",
-      "source": "src/renderer/mod.rs",
+      "source": "src/pal/mod.rs",
       "line": 6,
       "documented": true
     },
     {
       "name": "HIGHLIGHT_FADE_MS",
       "kind": "const",
-      "source": "src/state/durations.rs",
+      "source": "src/shared/durations.rs",
       "line": 2,
       "documented": true
     },
     {
       "name": "UNDO_COALESCE_MS",
       "kind": "const",
-      "source": "src/state/durations.rs",
+      "source": "src/shared/durations.rs",
       "line": 6,
       "documented": true
     },
     {
       "name": "MAX_UNDO_DEPTH",
       "kind": "const",
-      "source": "src/state/limits.rs",
+      "source": "src/shared/limits.rs",
       "line": 2,
       "documented": true
     },
     {
       "name": "MAX_HEADING_LEVEL",
       "kind": "const",
-      "source": "src/state/limits.rs",
+      "source": "src/shared/limits.rs",
       "line": 5,
       "documented": true
     },
     {
       "name": "sizes",
       "kind": "mod",
-      "source": "src/state/mod.rs",
+      "source": "src/shared/mod.rs",
       "line": 2,
       "documented": true
     },
     {
       "name": "durations",
       "kind": "mod",
-      "source": "src/state/mod.rs",
+      "source": "src/shared/mod.rs",
       "line": 4,
       "documented": true
     },
     {
       "name": "limits",
       "kind": "mod",
-      "source": "src/state/mod.rs",
+      "source": "src/shared/mod.rs",
       "line": 6,
       "documented": true
     },
     {
       "name": "paths",
       "kind": "mod",
-      "source": "src/state/mod.rs",
+      "source": "src/shared/mod.rs",
       "line": 8,
       "documented": true
     },
     {
       "name": "DOC_EXTENSION",
       "kind": "const",
-      "source": "src/state/paths.rs",
+      "source": "src/shared/paths.rs",
       "line": 2,
       "documented": true
     },
     {
       "name": "VIDEO_EXTENSIONS",
       "kind": "const",
-      "source": "src/state/paths.rs",
+      "source": "src/shared/paths.rs",
       "line": 5,
       "documented": true
     },
     {
       "name": "PARAGRAPH_CACHE_CAP",
       "kind": "const",
-      "source": "src/state/sizes.rs",
+      "source": "src/shared/sizes.rs",
       "line": 2,
       "documented": true
     },
     {
       "name": "THUMBNAIL_WIDTH",
       "kind": "const",
-      "source": "src/state/sizes.rs",
+      "source": "src/shared/sizes.rs",
       "line": 5,
       "documented": true
     },
     {
       "name": "THUMBNAIL_HEIGHT",
       "kind": "const",
-      "source": "src/state/sizes.rs",
+      "source": "src/shared/sizes.rs",
       "line": 8,
+      "documented": true
+    },
+    {
+      "name": "mcp",
+      "kind": "mod",
+      "source": "src/ui/mod.rs",
+      "line": 2,
+      "documented": true
+    },
+    {
+      "name": "gui",
+      "kind": "mod",
+      "source": "src/ui/mod.rs",
+      "line": 4,
       "documented": true
     },
     {

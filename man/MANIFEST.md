@@ -1,70 +1,80 @@
 # Documentation Index
 
-Generated: 2026-03-14T13:16:28.960073700+01:00  
+Generated: 2026-03-14T14:19:32.404939200+01:00  
 Project: `project`  
-Coverage: **32/33** items documented (**96%**) — ⚠ **1 undocumented**
+Coverage: **37/38** items documented (**97%**) — ⚠ **1 undocumented**
 
 ## Files
 
 | Source File | Items | Undocumented |
 |---|---|---|
 | [build.rs](man/build.md) | 0 | — |
-| [src/document/frontmatter.rs](man/src/document/frontmatter.md) | 0 | — |
-| [src/document/mod.rs](man/src/document/mod.md) | 7 | ✓ |
-| [src/document/parser.rs](man/src/document/parser.md) | 0 | — |
-| [src/document/serializer.rs](man/src/document/serializer.md) | 0 | — |
-| [src/editor/commands.rs](man/src/editor/commands.md) | 0 | — |
-| [src/editor/mod.rs](man/src/editor/mod.md) | 3 | ✓ |
-| [src/editor/undo.rs](man/src/editor/undo.md) | 0 | — |
+| [src/adapter/editor_state_adp.rs](man/src/adapter/editor_state_adp.md) | 1 | ✓ |
+| [src/adapter/mod.rs](man/src/adapter/mod.md) | 1 | ✓ |
+| [src/core/document/frontmatter.rs](man/src/core/document/frontmatter.md) | 0 | — |
+| [src/core/document/mod.rs](man/src/core/document/mod.md) | 7 | ✓ |
+| [src/core/document/parser.rs](man/src/core/document/parser.md) | 0 | — |
+| [src/core/document/serializer.rs](man/src/core/document/serializer.md) | 0 | — |
+| [src/core/editor/commands.rs](man/src/core/editor/commands.md) | 0 | — |
+| [src/core/editor/mod.rs](man/src/core/editor/mod.md) | 2 | ✓ |
+| [src/core/editor/undo.rs](man/src/core/editor/undo.md) | 0 | — |
+| [src/core/mod.rs](man/src/core/mod.md) | 2 | ✓ |
+| [src/gateway/mod.rs](man/src/gateway/mod.md) | 0 | — |
 | [src/lib.rs](man/src/lib.md) | 6 | ✓ |
 | [src/main.rs](man/src/main.md) | 0 | — |
-| [src/mcp/mod.rs](man/src/mcp/mod.md) | 0 | — |
-| [src/media/mod.rs](man/src/media/mod.md) | 0 | — |
-| [src/renderer/cursor.rs](man/src/renderer/cursor.md) | 0 | — |
-| [src/renderer/media.rs](man/src/renderer/media.md) | 0 | — |
-| [src/renderer/mod.rs](man/src/renderer/mod.md) | 3 | ✓ |
-| [src/renderer/paragraph.rs](man/src/renderer/paragraph.md) | 0 | — |
-| [src/state/durations.rs](man/src/state/durations.md) | 2 | ✓ |
-| [src/state/limits.rs](man/src/state/limits.md) | 2 | ✓ |
-| [src/state/mod.rs](man/src/state/mod.md) | 4 | ✓ |
-| [src/state/paths.rs](man/src/state/paths.md) | 2 | ✓ |
-| [src/state/sizes.rs](man/src/state/sizes.md) | 3 | ✓ |
+| [src/pal/cursor.rs](man/src/pal/cursor.md) | 0 | — |
+| [src/pal/media.rs](man/src/pal/media.md) | 0 | — |
+| [src/pal/mod.rs](man/src/pal/mod.md) | 3 | ✓ |
+| [src/pal/paragraph.rs](man/src/pal/paragraph.md) | 0 | — |
+| [src/shared/durations.rs](man/src/shared/durations.md) | 2 | ✓ |
+| [src/shared/limits.rs](man/src/shared/limits.md) | 2 | ✓ |
+| [src/shared/mod.rs](man/src/shared/mod.md) | 4 | ✓ |
+| [src/shared/paths.rs](man/src/shared/paths.md) | 2 | ✓ |
+| [src/shared/sizes.rs](man/src/shared/sizes.md) | 3 | ✓ |
+| [src/ui/gui/mod.rs](man/src/ui/gui/mod.md) | 0 | — |
+| [src/ui/mcp/mod.rs](man/src/ui/mcp/mod.md) | 0 | — |
+| [src/ui/mod.rs](man/src/ui/mod.md) | 2 | ✓ |
 | [ui/main.slint](man/ui/main.md) | 1 | ⚠ 1 |
 
 ## All Items
 
 | Item | Kind | Source | Line | Documented |
 |---|---|---|---|---|
-| `parser` | mod | src/document/mod.rs | 2 | ✓ |
-| `serializer` | mod | src/document/mod.rs | 4 | ✓ |
-| `frontmatter` | mod | src/document/mod.rs | 6 | ✓ |
-| `Document` | struct | src/document/mod.rs | 10 | ✓ |
-| `Frontmatter` | struct | src/document/mod.rs | 19 | ✓ |
-| `Block` | enum | src/document/mod.rs | 26 | ✓ |
-| `Inline` | enum | src/document/mod.rs | 67 | ✓ |
-| `commands` | mod | src/editor/mod.rs | 2 | ✓ |
-| `undo` | mod | src/editor/mod.rs | 4 | ✓ |
-| `EditorState` | struct | src/editor/mod.rs | 8 | ✓ |
-| `document` | mod | src/lib.rs | 2 | ✓ |
-| `editor` | mod | src/lib.rs | 4 | ✓ |
-| `renderer` | mod | src/lib.rs | 6 | ✓ |
-| `media` | mod | src/lib.rs | 8 | ✓ |
-| `mcp` | mod | src/lib.rs | 10 | ✓ |
-| `state` | mod | src/lib.rs | 12 | ✓ |
-| `paragraph` | mod | src/renderer/mod.rs | 2 | ✓ |
-| `cursor` | mod | src/renderer/mod.rs | 4 | ✓ |
-| `media` | mod | src/renderer/mod.rs | 6 | ✓ |
-| `HIGHLIGHT_FADE_MS` | const | src/state/durations.rs | 2 | ✓ |
-| `UNDO_COALESCE_MS` | const | src/state/durations.rs | 6 | ✓ |
-| `MAX_UNDO_DEPTH` | const | src/state/limits.rs | 2 | ✓ |
-| `MAX_HEADING_LEVEL` | const | src/state/limits.rs | 5 | ✓ |
-| `sizes` | mod | src/state/mod.rs | 2 | ✓ |
-| `durations` | mod | src/state/mod.rs | 4 | ✓ |
-| `limits` | mod | src/state/mod.rs | 6 | ✓ |
-| `paths` | mod | src/state/mod.rs | 8 | ✓ |
-| `DOC_EXTENSION` | const | src/state/paths.rs | 2 | ✓ |
-| `VIDEO_EXTENSIONS` | const | src/state/paths.rs | 5 | ✓ |
-| `PARAGRAPH_CACHE_CAP` | const | src/state/sizes.rs | 2 | ✓ |
-| `THUMBNAIL_WIDTH` | const | src/state/sizes.rs | 5 | ✓ |
-| `THUMBNAIL_HEIGHT` | const | src/state/sizes.rs | 8 | ✓ |
+| `EditorState` | struct | src/adapter/editor_state_adp.rs | 4 | ✓ |
+| `editor_state_adp` | mod | src/adapter/mod.rs | 2 | ✓ |
+| `parser` | mod | src/core/document/mod.rs | 2 | ✓ |
+| `serializer` | mod | src/core/document/mod.rs | 4 | ✓ |
+| `frontmatter` | mod | src/core/document/mod.rs | 6 | ✓ |
+| `Document` | struct | src/core/document/mod.rs | 10 | ✓ |
+| `Frontmatter` | struct | src/core/document/mod.rs | 19 | ✓ |
+| `Block` | enum | src/core/document/mod.rs | 26 | ✓ |
+| `Inline` | enum | src/core/document/mod.rs | 67 | ✓ |
+| `commands` | mod | src/core/editor/mod.rs | 2 | ✓ |
+| `undo` | mod | src/core/editor/mod.rs | 4 | ✓ |
+| `document` | mod | src/core/mod.rs | 2 | ✓ |
+| `editor` | mod | src/core/mod.rs | 4 | ✓ |
+| `ui` | mod | src/lib.rs | 2 | ✓ |
+| `adapter` | mod | src/lib.rs | 4 | ✓ |
+| `core` | mod | src/lib.rs | 6 | ✓ |
+| `pal` | mod | src/lib.rs | 8 | ✓ |
+| `gateway` | mod | src/lib.rs | 10 | ✓ |
+| `shared` | mod | src/lib.rs | 12 | ✓ |
+| `paragraph` | mod | src/pal/mod.rs | 2 | ✓ |
+| `cursor` | mod | src/pal/mod.rs | 4 | ✓ |
+| `media` | mod | src/pal/mod.rs | 6 | ✓ |
+| `HIGHLIGHT_FADE_MS` | const | src/shared/durations.rs | 2 | ✓ |
+| `UNDO_COALESCE_MS` | const | src/shared/durations.rs | 6 | ✓ |
+| `MAX_UNDO_DEPTH` | const | src/shared/limits.rs | 2 | ✓ |
+| `MAX_HEADING_LEVEL` | const | src/shared/limits.rs | 5 | ✓ |
+| `sizes` | mod | src/shared/mod.rs | 2 | ✓ |
+| `durations` | mod | src/shared/mod.rs | 4 | ✓ |
+| `limits` | mod | src/shared/mod.rs | 6 | ✓ |
+| `paths` | mod | src/shared/mod.rs | 8 | ✓ |
+| `DOC_EXTENSION` | const | src/shared/paths.rs | 2 | ✓ |
+| `VIDEO_EXTENSIONS` | const | src/shared/paths.rs | 5 | ✓ |
+| `PARAGRAPH_CACHE_CAP` | const | src/shared/sizes.rs | 2 | ✓ |
+| `THUMBNAIL_WIDTH` | const | src/shared/sizes.rs | 5 | ✓ |
+| `THUMBNAIL_HEIGHT` | const | src/shared/sizes.rs | 8 | ✓ |
+| `mcp` | mod | src/ui/mod.rs | 2 | ✓ |
+| `gui` | mod | src/ui/mod.rs | 4 | ✓ |
 | `AppWindow` | component | ui/main.slint | 4 | ⚠ |

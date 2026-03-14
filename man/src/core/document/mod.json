@@ -1,0 +1,54 @@
+{
+  "source": "src/core/document/mod.rs",
+  "items": [
+    {
+      "name": "parser",
+      "kind": "mod",
+      "signature": "pub mod parser;",
+      "line": 2,
+      "doc": "Block and Inline AST types for the document model."
+    },
+    {
+      "name": "serializer",
+      "kind": "mod",
+      "signature": "pub mod serializer;",
+      "line": 4,
+      "doc": "AST to Markdown serializer."
+    },
+    {
+      "name": "frontmatter",
+      "kind": "mod",
+      "signature": "pub mod frontmatter;",
+      "line": 6,
+      "doc": "YAML frontmatter parsing and serialization."
+    },
+    {
+      "name": "Document",
+      "kind": "struct",
+      "signature": "pub struct Document",
+      "line": 10,
+      "doc": "A complete document — sequence of blocks with optional frontmatter."
+    },
+    {
+      "name": "Frontmatter",
+      "kind": "struct",
+      "signature": "pub struct Frontmatter",
+      "line": 19,
+      "doc": "YAML frontmatter key-value pairs."
+    },
+    {
+      "name": "Block",
+      "kind": "enum",
+      "signature": "pub enum Block",
+      "line": 26,
+      "doc": "A block-level element in the document."
+    },
+    {
+      "name": "Inline",
+      "kind": "enum",
+      "signature": "pub enum Inline",
+      "line": 67,
+      "doc": "An inline-level element within a block."
+    }
+  ]
+}

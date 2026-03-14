@@ -1,0 +1,12 @@
+{
+  "source": "src/adapter/mod.rs",
+  "items": [
+    {
+      "name": "editor_state_adp",
+      "kind": "mod",
+      "signature": "pub mod editor_state_adp;",
+      "line": 2,
+      "doc": "Editor state — the adapter's central state owner."
+    }
+  ]
+}

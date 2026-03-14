@@ -1,0 +1,26 @@
+{
+  "source": "src/pal/mod.rs",
+  "items": [
+    {
+      "name": "paragraph",
+      "kind": "mod",
+      "signature": "pub mod paragraph;",
+      "line": 2,
+      "doc": "Skia/skparagraph rendering pipeline."
+    },
+    {
+      "name": "cursor",
+      "kind": "mod",
+      "signature": "pub mod cursor;",
+      "line": 4,
+      "doc": "Cursor and selection rectangle rendering."
+    },
+    {
+      "name": "media",
+      "kind": "mod",
+      "signature": "pub mod media;",
+      "line": 6,
+      "doc": "Media placeholder layout and rendering."
+    }
+  ]
+}

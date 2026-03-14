@@ -1,0 +1,19 @@
+{
+  "source": "src/core/editor/mod.rs",
+  "items": [
+    {
+      "name": "commands",
+      "kind": "mod",
+      "signature": "pub mod commands;",
+      "line": 2,
+      "doc": "Command trait and concrete editing commands."
+    },
+    {
+      "name": "undo",
+      "kind": "mod",
+      "signature": "pub mod undo;",
+      "line": 4,
+      "doc": "Undo/redo stack with command pattern."
+    }
+  ]
+}

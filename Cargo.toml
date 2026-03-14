@@ -20,14 +20,13 @@ toml = "0.8"
 serde = { version = "1", features = ["derive"] }
 serde_yaml = "0.9"
 pulldown-cmark = { version = "0.12", default-features = false }
-skia-safe = { version = "0.90", features = ["textlayout", "svg"] }
 syntect = "5"
 image = "0.25"
 thiserror = "2"
 anyhow = "1"
 tracing = "0.1"
 tracing-subscriber = "0.3"
-tokio = { version = "1", features = ["rt", "sync", "macros"] }
+tokio = { version = "1", features = ["rt", "rt-multi-thread", "sync", "macros"] }
 rmcp = { version = "0.16", features = ["server", "transport-io", "macros"] }
 
 [target.'cfg(windows)'.dependencies]

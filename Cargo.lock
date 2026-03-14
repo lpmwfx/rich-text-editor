@@ -4067,7 +4067,6 @@ dependencies = [
  "rustscanners",
  "serde",
  "serde_yaml",
- "skia-safe",
  "slint",
  "slint-build",
  "slint-ui-templates",
@@ -4484,23 +4483,9 @@ version = "0.90.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6a71c01d325d40b1031dee67d251a5e0132e79e2a9ec272149a4f4a0d4b8b3be"
 dependencies = [
- "base64",
  "bitflags 2.11.0",
- "percent-encoding",
  "skia-bindings",
- "skia-svg-macros",
  "windows 0.62.2",
-]
-
-[[package]]
-name = "skia-svg-macros"
-version = "0.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "044dd2233c9717a74f75197f3e7f0a966db2127c0ffb5e05013b480a9b75b2c7"
-dependencies = [
- "proc-macro2",
- "quote",
- "syn",
 ]
 
 [[package]]

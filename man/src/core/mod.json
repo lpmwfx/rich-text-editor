@@ -1,0 +1,19 @@
+{
+  "source": "src/core/mod.rs",
+  "items": [
+    {
+      "name": "document",
+      "kind": "mod",
+      "signature": "pub mod document;",
+      "line": 2,
+      "doc": "Block/Inline AST document model, parser, and serializer."
+    },
+    {
+      "name": "editor",
+      "kind": "mod",
+      "signature": "pub mod editor;",
+      "line": 4,
+      "doc": "Editor commands (Insert, Delete, Format) and undo stack."
+    }
+  ]
+}

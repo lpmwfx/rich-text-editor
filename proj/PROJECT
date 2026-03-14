@@ -21,12 +21,17 @@ and MCP server for live manipulation by Claude Desktop.
 - Logging: tracing + tracing-subscriber (stderr in MCP mode)
 
 ## Structure
-- src: src/ (lib.rs + main.rs, binary name: rte)
-- ui: ui/ (Slint files, imports from ../RustUI for shell/theme/tokens)
-- doc: doc/ (frozen source documents — project.md, mcp.md)
-- config: config/
-- proj: proj/
-- assets: assets/ (local media assets)
+6-layer hexagonal MVVM per global/topology.md:
+- src/ui/_ui: GUI (Slint) and MCP server — dual UI surfaces
+- src/adapter/_adp: Data exchange hub — EditorState owner, ViewModel
+- src/core/_core: Business logic — document AST, parser, serializer, commands, undo
+- src/pal/_pal: Platform abstraction — Skia/skparagraph rendering
+- src/gateway/_gtw: IO adapter — file loading, media loading, config
+- src/shared/_x: Cross-cutting — constants, errors, types
+- ui/: Slint component files (imports from ../RustUI for shell/theme/tokens)
+- doc/: Frozen source documents (project.md, mcp.md)
+- proj/: Project institution files
+- assets/: Local media assets
 
 ## Method
 - Workflow: PROJECT -> FIXES -> TODO -> code -> test -> DONE

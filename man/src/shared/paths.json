@@ -1,0 +1,19 @@
+{
+  "source": "src/shared/paths.rs",
+  "items": [
+    {
+      "name": "DOC_EXTENSION",
+      "kind": "const",
+      "signature": "pub const DOC_EXTENSION: &str = \"md\";",
+      "line": 2,
+      "doc": "Default file extension for documents."
+    },
+    {
+      "name": "VIDEO_EXTENSIONS",
+      "kind": "const",
+      "signature": "pub const VIDEO_EXTENSIONS: &[&str] = &[\"mp4\", \"webm\", \"mov\", \"mkv\"];",
+      "line": 5,
+      "doc": "Known video file extensions (lowercase, without dot)."
+    }
+  ]
+}

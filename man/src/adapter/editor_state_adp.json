@@ -1,0 +1,12 @@
+{
+  "source": "src/adapter/editor_state_adp.rs",
+  "items": [
+    {
+      "name": "EditorState",
+      "kind": "struct",
+      "signature": "pub struct EditorState",
+      "line": 4,
+      "doc": "Central editor state — the adapter's state owner.\nHolds document, cursor, selection, and coordinates all layers."
+    }
+  ]
+}

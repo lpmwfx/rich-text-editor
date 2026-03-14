@@ -1,44 +1,44 @@
 # `src/lib.rs`
 
-## `pub mod document;`
+## `pub mod ui;`
 *Line 2 · mod*
 
-Rich text editor library — document model, editor state, renderer, and MCP server.
+UI layer — GUI (Slint) and MCP server surfaces.
 
 ---
 
-## `pub mod editor;`
+## `pub mod adapter;`
 *Line 4 · mod*
 
-Editor state management — cursor, selection, undo/redo.
+Adapter layer — data exchange hub, state owner, ViewModel.
 
 ---
 
-## `pub mod renderer;`
+## `pub mod core;`
 *Line 6 · mod*
 
-Skia/skparagraph rendering pipeline.
+Core layer — business logic, document model, editor commands.
 
 ---
 
-## `pub mod media;`
+## `pub mod pal;`
 *Line 8 · mod*
 
-Media asset management — lazy loading and thumbnail cache.
+PAL layer — platform abstraction, Skia/skparagraph rendering.
 
 ---
 
-## `pub mod mcp;`
+## `pub mod gateway;`
 *Line 10 · mod*
 
-MCP server — exposes editor as tool/resource server.
+Gateway layer — IO adapter, file and media loading.
 
 ---
 
-## `pub mod state;`
+## `pub mod shared;`
 *Line 12 · mod*
 
-Named constants and configuration values.
+Shared layer — cross-cutting constants, errors, types.
 
 ---
 

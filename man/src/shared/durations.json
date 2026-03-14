@@ -1,0 +1,19 @@
+{
+  "source": "src/shared/durations.rs",
+  "items": [
+    {
+      "name": "HIGHLIGHT_FADE_MS",
+      "kind": "const",
+      "signature": "pub const HIGHLIGHT_FADE_MS: u64 = 2000;",
+      "line": 2,
+      "doc": "MCP mutation highlight fade duration in milliseconds."
+    },
+    {
+      "name": "UNDO_COALESCE_MS",
+      "kind": "const",
+      "signature": "pub const UNDO_COALESCE_MS: u64 = 300;",
+      "line": 6,
+      "doc": "Undo coalescing window in milliseconds — consecutive keystrokes within\nthis window are grouped into a single undo entry."
+    }
+  ]
+}
