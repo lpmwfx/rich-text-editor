@@ -52,8 +52,9 @@ and MCP server for live manipulation by Claude Desktop.
 
 ## Current
 - phase: 2
-- id: gateway-and-mcp
+- id: phase-2-rendering-and-mcp
 - status: development
+- focus: Skparagraph rendering foundation (R1-R5) — gateway and MCP follow
 
 ## History
 - phase 1, id: scaffold — completed 2026-03-14. AST, parser, serializer, commands, undo, Slint shell. 37 tests.

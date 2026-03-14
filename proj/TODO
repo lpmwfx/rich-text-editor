@@ -1,52 +1,85 @@
-# TODO: gateway-and-mcp
+# TODO: phase-2-rendering-and-mcp
 
 phase: 2
-id: gateway-and-mcp
+id: phase-2-rendering-and-mcp
+
+## Skparagraph Rendering (Foundation — ACTIVE)
+
+- id: R1
+  task: Implement skia::textlayout::ParagraphBuilder in src/pal/paragraph.rs
+  pass: Document blocks render as Skia Paragraphs with correct text layout
+  status: done
+  notes: Implemented real ParagraphBuilder with FontCollection, TextStyle, layout()
+  completed: 2026-03-14
+
+- id: R2
+  task: Setup Slint render notifier callback in src/main.rs
+  pass: GUI shows rendered paragraphs (not just Slint Text elements)
+  status: pending
+  notes: Wire Skia canvas to render loop via slint rendering_notifier
+
+- id: R3
+  task: Implement cursor positioning via skparagraph getGlyphPositionAtCoordinate()
+  pass: Mouse click places cursor at correct document offset
+  status: pending
+  notes: src/pal/cursor.rs — integrate real skparagraph APIs
+
+- id: R4
+  task: Implement selection highlighting via skparagraph getRectsForRange()
+  pass: Drag-select highlights text ranges correctly
+  status: pending
+  notes: Visual feedback for selection rectangles
+
+- id: R5
+  task: Implement media placeholder rendering via getRectsForPlaceholders()
+  pass: Image/video placeholders display correctly in document
+  status: pending
+  notes: src/pal/media.rs — async thumbnail loading
 
 ## Gateway — File IO
 
-- id: 1
+- id: G1
   task: Implement file_ops module — open_document, save_document
   pass: cargo test gateway — open .md file, modify, save, re-open matches
   status: pending
 
-- id: 2
+- id: G2
   task: Wire gateway to EditorState — open sets document + file_path, save serializes
   pass: EditorState.open_file() and save_file() work end-to-end
   status: pending
 
 ## MCP Server
 
-- id: 3
+- id: M1
   task: Implement EditorMcpServer struct with rmcp #[tool] handlers
   pass: cargo build compiles MCP server with all tool signatures from doc/mcp.md
   status: pending
 
-- id: 4
+- id: M2
   task: Implement document://current resource
   pass: MCP resource returns current document as Markdown
   status: pending
 
-- id: 5
+- id: M3
   task: Implement core tools — get_document, open_document, save_document
   pass: Tools dispatch correctly through EditorState
   status: pending
 
-- id: 6
+- id: M4
   task: Implement mutation tools — insert_text, replace_range, delete_range, format_range
   pass: Each tool applies command via UndoStack, returns success
   status: pending
 
-- id: 7
+- id: M5
   task: Implement undo/redo and stats tools
   pass: undo/redo traverse stack, get_document_stats returns counts
   status: pending
 
-- id: 8
+- id: M6
   task: Create .mcp.json for Claude Desktop integration
   pass: File exists with correct command and args
   status: pending
 
 ## Blockers
 
-(none)
+(none) — Skparagraph rendering tasks (R1-R5) take priority; gateway/MCP follow after

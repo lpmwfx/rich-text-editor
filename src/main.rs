@@ -4,10 +4,9 @@ slint::include_modules!();
 
 use rich_text_editor::core::document::Document;
 use rich_text_editor::pal::build_paragraphs;
-use rich_text_editor::ui::mcp::EditorMcpServer;
-use rmcp::ServiceExt;
-use std::sync::Arc;
-use tokio::sync::Mutex;
+
+/// Editor canvas width in pixels
+const EDITOR_WIDTH: f32 = 800.0;
 
 /// Sample Markdown for initial display.
 const SAMPLE_MD: &str = "\
@@ -35,10 +34,10 @@ fn run_gui() -> anyhow::Result<()> {
     // Parse sample markdown
     let doc = Document::from_markdown(SAMPLE_MD);
 
-    // Build Skia paragraphs
-    let _paragraphs = build_paragraphs(&doc, 800.0)?;
+    // Build Skia paragraphs (R1 — real textlayout implementation)
+    let _paragraphs = build_paragraphs(&doc, EDITOR_WIDTH)?;
 
-    // For now, just show placeholder in Slint (Skia rendering will come next)
+    // Placeholder display until R2 (render notifier callback) wires output to canvas
     ui.set_cursor_line(0);
     ui.set_cursor_col(0);
 
@@ -57,7 +56,7 @@ async fn run_mcp() -> anyhow::Result<()> {
         .with_ansi(false)
         .init();
 
-    // TODO: Wire EditorMcpServer with actual EditorState
+    // MCP server stub — implementation blocked on R1 completion
     eprintln!("MCP server mode not yet implemented");
 
     Ok(())

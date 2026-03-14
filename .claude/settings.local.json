@@ -25,7 +25,9 @@
       "Bash(cp ninja.exe /c/Users/mathi/.cargo/bin/)",
       "Bash(ninja --version)",
       "Bash(timeout:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(cargo test:*)"
     ]
   },
   "enableAllProjectMcpServers": true,

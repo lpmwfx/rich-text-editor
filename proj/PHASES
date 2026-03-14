@@ -1,0 +1,90 @@
+# PHASES: rich-text-editor
+
+## Phase 1: Scaffold (COMPLETED)
+- **Goal**: Core document model, parser, serializer, undo/redo, basic Slint UI
+- **Status**: Done 2026-03-14
+- **Tests**: 37 passing
+- **Artifacts**:
+  - src/core/: Document AST, pulldown-cmark parser, custom serializer
+  - src/adapter/: EditorState, UndoStack, command pattern
+  - ui/main.slint: Minimal Slint shell
+  - Markdown round-trip integrity verified
+
+---
+
+## Phase 2: Rendering and MCP (CURRENT)
+- **id**: phase-2-rendering-and-mcp
+- **Goal**: Production-grade text layout via Skia/skparagraph; MCP server for Claude Desktop; file IO
+
+### Work Streams (Execution Order)
+
+#### R: Skparagraph Rendering (Foundation — ACTIVE)
+Priority: Highest. Unlocks cursor, selection, media rendering.
+
+1. **R1** — Implement skia::textlayout::ParagraphBuilder in src/pal/paragraph.rs
+   - Replace placeholder metadata with real Skia paragraph layout
+   - Test: Document blocks render with correct text layout, font metrics
+
+2. **R2** — Setup Slint render notifier callback
+   - Wire Skia canvas to slint rendering_notifier
+   - Test: GUI shows Skia-rendered paragraphs (not Slint Text elements)
+
+3. **R3** — Cursor positioning via getGlyphPositionAtCoordinate()
+   - Implement click-to-place cursor at document offset
+   - Test: Mouse click places cursor at correct character position
+
+4. **R4** — Selection highlighting via getRectsForRange()
+   - Implement drag-select with visual feedback
+   - Test: Selection rectangles render correctly for arbitrary ranges
+
+5. **R5** — Media placeholder rendering via getRectsForPlaceholders()
+   - Render image/video placeholders inline with text
+   - Test: Images and videos display as placeholders in document layout
+
+#### G: Gateway — File IO
+Priority: Medium. Unblocked after R1 or in parallel.
+
+1. **G1** — Implement file_ops module (open_document, save_document)
+   - File system operations, Markdown parsing on load, serialization on save
+   - Test: cargo test gateway — open .md file, modify, save, re-open verifies content
+
+2. **G2** — Wire gateway to EditorState
+   - EditorState.open_file() and save_file() call gateway operations
+   - Test: End-to-end file open/save with actual file operations
+
+#### M: MCP Server
+Priority: Medium-Low. Unblocked after R1 and G1.
+
+1. **M1** — Implement EditorMcpServer with tool handlers
+   - Build MCP server struct with rmcp #[tool] methods
+   - Test: cargo build compiles MCP server with all tool signatures from doc/mcp.md
+
+2. **M2** — Implement document://current resource
+   - Resource returns current document as Markdown
+   - Test: MCP client reads resource correctly
+
+3. **M3** — Implement core tools (get_document, open_document, save_document)
+   - Tools dispatch through EditorState
+   - Test: Tools execute without errors
+
+4. **M4** — Implement mutation tools (insert_text, replace_range, delete_range, format_range)
+   - Tools apply commands via UndoStack, return success
+   - Test: Mutations persist and undo/redo work correctly
+
+5. **M5** — Implement undo/redo and stats tools
+   - undo/redo traverse stack; get_document_stats returns counts
+   - Test: Tool results match expected behavior
+
+6. **M6** — Create .mcp.json for Claude Desktop integration
+   - Configuration file with correct command and args
+   - Test: File exists and is valid JSON
+
+---
+
+## Phase 3: Polish and Deploy (Future)
+- **Goal**: Performance tuning, accessibility, release build
+- **Expected tasks**:
+  - Token-driven UI (slint-ui-templates color/font system)
+  - Async media thumbnail loading
+  - Error recovery and edge cases
+  - Binary release and cross-platform testing
