@@ -2,9 +2,12 @@
 /// Holds document, cursor, selection, undo stack.
 /// All mutations go through the undo stack.
 
+use std::path::{Path, PathBuf};
+
 use crate::core::document::Document;
 use crate::core::editor::commands::{Command, CommandError};
 use crate::core::editor::undo::UndoStack;
+use crate::gateway::file_ops;
 
 /// The adapter's central state — owns the document and coordinates all layers.
 #[derive(Debug)]
@@ -67,6 +70,33 @@ impl EditorState {
         self.document.to_markdown()
     }
 
+    /// Open a Markdown file — resets document, cursor, undo stack.
+    pub fn open_file(&mut self, path: &Path) -> Result<(), EditorError> {
+        let content = file_ops::read_file(path).map_err(EditorError::FileError)?;
+        self.document = Document::from_markdown(&content);
+        self.cursor = 0;
+        self.selection = None;
+        self.file_path = Some(path.to_path_buf());
+        self.undo_stack.clear();
+        Ok(())
+    }
+
+    /// Save the current document to its file path.
+    pub fn save_file(&self) -> Result<(), EditorError> {
+        let path = self.file_path.as_ref().ok_or(EditorError::NoFileOpen)?;
+        let md = self.to_markdown();
+        file_ops::write_file(path, &md).map_err(EditorError::FileError)?;
+        Ok(())
+    }
+
+    /// Save the current document to a specific path.
+    pub fn save_file_as(&mut self, path: &Path) -> Result<(), EditorError> {
+        let md = self.to_markdown();
+        file_ops::write_file(path, &md).map_err(EditorError::FileError)?;
+        self.file_path = Some(path.to_path_buf());
+        Ok(())
+    }
+
     /// Get the selected text, if any.
     pub fn selected_text(&self) -> Option<String> {
         let (start, end) = self.selection?;
@@ -77,6 +107,20 @@ impl EditorState {
             None
         }
     }
+}
+
+/// Adapter-level errors combining command and file errors.
+#[derive(Debug, thiserror::Error)]
+pub enum EditorError {
+    /// A command failed.
+    #[error("command error: {0}")]
+    CommandError(#[from] CommandError),
+    /// A file operation failed.
+    #[error("file error: {0}")]
+    FileError(file_ops::FileError),
+    /// No file is currently open.
+    #[error("no file open")]
+    NoFileOpen,
 }
 
 impl Default for EditorState {
@@ -118,5 +162,40 @@ mod tests {
         let mut state = EditorState::from_markdown("Hello world\n");
         state.selection = Some((6, 11));
         assert_eq!(state.selected_text().unwrap(), "world");
+    }
+
+    #[test]
+    fn open_and_save_file() {
+        let dir = std::env::temp_dir().join("rte_test_adapter");
+        let _ = std::fs::create_dir_all(&dir);
+        let path = dir.join("test_open.md");
+        std::fs::write(&path, "# Test\n\nBody\n").unwrap();
+
+        let mut state = EditorState::new();
+        state.open_file(&path).unwrap();
+        assert_eq!(state.file_path.as_ref().unwrap(), &path);
+        assert!(!state.document.blocks.is_empty());
+
+        // Modify and save — use plain text that survives parse round-trip
+        let md = state.to_markdown();
+        let insert_offset = md.find("Body").unwrap();
+        state
+            .apply(Box::new(InsertTextCommand {
+                offset: insert_offset,
+                text: "Edited ".into(),
+            }))
+            .unwrap();
+        state.save_file().unwrap();
+
+        let saved = std::fs::read_to_string(&path).unwrap();
+        assert!(saved.contains("Edited Body"));
+
+        let _ = std::fs::remove_file(&path);
+    }
+
+    #[test]
+    fn save_without_file_errors() {
+        let state = EditorState::new();
+        assert!(state.save_file().is_err());
     }
 }

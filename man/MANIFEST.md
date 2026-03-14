@@ -1,15 +1,15 @@
 # Documentation Index
 
-Generated: 2026-03-14T15:55:53.402772400+01:00  
+Generated: 2026-03-14T16:39:14.624454+01:00  
 Project: `project`  
-Coverage: **74/74** items documented (**100%**)
+Coverage: **92/92** items documented (**100%**)
 
 ## Files
 
 | Source File | Items | Undocumented |
 |---|---|---|
 | [build.rs](man/build.md) | 0 | — |
-| [src/adapter/editor_state_adp.rs](man/src/adapter/editor_state_adp.md) | 8 | ✓ |
+| [src/adapter/editor_state_adp.rs](man/src/adapter/editor_state_adp.md) | 12 | ✓ |
 | [src/adapter/mod.rs](man/src/adapter/mod.md) | 1 | ✓ |
 | [src/core/document/frontmatter.rs](man/src/core/document/frontmatter.md) | 2 | ✓ |
 | [src/core/document/mod.rs](man/src/core/document/mod.md) | 15 | ✓ |
@@ -19,7 +19,8 @@ Coverage: **74/74** items documented (**100%**)
 | [src/core/editor/mod.rs](man/src/core/editor/mod.md) | 2 | ✓ |
 | [src/core/editor/undo.rs](man/src/core/editor/undo.md) | 10 | ✓ |
 | [src/core/mod.rs](man/src/core/mod.md) | 2 | ✓ |
-| [src/gateway/mod.rs](man/src/gateway/mod.md) | 0 | — |
+| [src/gateway/file_ops.rs](man/src/gateway/file_ops.md) | 3 | ✓ |
+| [src/gateway/mod.rs](man/src/gateway/mod.md) | 1 | ✓ |
 | [src/lib.rs](man/src/lib.md) | 6 | ✓ |
 | [src/main.rs](man/src/main.md) | 0 | — |
 | [src/pal/cursor.rs](man/src/pal/cursor.md) | 0 | — |
@@ -32,7 +33,7 @@ Coverage: **74/74** items documented (**100%**)
 | [src/shared/paths.rs](man/src/shared/paths.md) | 2 | ✓ |
 | [src/shared/sizes.rs](man/src/shared/sizes.md) | 3 | ✓ |
 | [src/ui/gui/mod.rs](man/src/ui/gui/mod.md) | 0 | — |
-| [src/ui/mcp/mod.rs](man/src/ui/mcp/mod.md) | 0 | — |
+| [src/ui/mcp/mod.rs](man/src/ui/mcp/mod.md) | 10 | ✓ |
 | [src/ui/mod.rs](man/src/ui/mod.md) | 2 | ✓ |
 | [ui/main.slint](man/ui/main.md) | 0 | — |
 
@@ -40,14 +41,18 @@ Coverage: **74/74** items documented (**100%**)
 
 | Item | Kind | Source | Line | Documented |
 |---|---|---|---|---|
-| `EditorState` | struct | src/adapter/editor_state_adp.rs | 11 | ✓ |
-| `new` | fn | src/adapter/editor_state_adp.rs | 26 | ✓ |
-| `from_markdown` | fn | src/adapter/editor_state_adp.rs | 37 | ✓ |
-| `apply` | fn | src/adapter/editor_state_adp.rs | 48 | ✓ |
-| `undo` | fn | src/adapter/editor_state_adp.rs | 54 | ✓ |
-| `redo` | fn | src/adapter/editor_state_adp.rs | 60 | ✓ |
-| `to_markdown` | fn | src/adapter/editor_state_adp.rs | 66 | ✓ |
-| `selected_text` | fn | src/adapter/editor_state_adp.rs | 71 | ✓ |
+| `EditorState` | struct | src/adapter/editor_state_adp.rs | 14 | ✓ |
+| `new` | fn | src/adapter/editor_state_adp.rs | 29 | ✓ |
+| `from_markdown` | fn | src/adapter/editor_state_adp.rs | 40 | ✓ |
+| `apply` | fn | src/adapter/editor_state_adp.rs | 51 | ✓ |
+| `undo` | fn | src/adapter/editor_state_adp.rs | 57 | ✓ |
+| `redo` | fn | src/adapter/editor_state_adp.rs | 63 | ✓ |
+| `to_markdown` | fn | src/adapter/editor_state_adp.rs | 69 | ✓ |
+| `open_file` | fn | src/adapter/editor_state_adp.rs | 74 | ✓ |
+| `save_file` | fn | src/adapter/editor_state_adp.rs | 85 | ✓ |
+| `save_file_as` | fn | src/adapter/editor_state_adp.rs | 93 | ✓ |
+| `selected_text` | fn | src/adapter/editor_state_adp.rs | 101 | ✓ |
+| `EditorError` | enum | src/adapter/editor_state_adp.rs | 114 | ✓ |
 | `editor_state_adp` | mod | src/adapter/mod.rs | 2 | ✓ |
 | `extract` | fn | src/core/document/frontmatter.rs | 7 | ✓ |
 | `format` | fn | src/core/document/frontmatter.rs | 47 | ✓ |
@@ -90,6 +95,10 @@ Coverage: **74/74** items documented (**100%**)
 | `clear` | fn | src/core/editor/undo.rs | 94 | ✓ |
 | `document` | mod | src/core/mod.rs | 2 | ✓ |
 | `editor` | mod | src/core/mod.rs | 4 | ✓ |
+| `read_file` | fn | src/gateway/file_ops.rs | 6 | ✓ |
+| `write_file` | fn | src/gateway/file_ops.rs | 14 | ✓ |
+| `FileError` | enum | src/gateway/file_ops.rs | 23 | ✓ |
+| `file_ops` | mod | src/gateway/mod.rs | 5 | ✓ |
 | `ui` | mod | src/lib.rs | 2 | ✓ |
 | `adapter` | mod | src/lib.rs | 4 | ✓ |
 | `core` | mod | src/lib.rs | 6 | ✓ |
@@ -112,5 +121,15 @@ Coverage: **74/74** items documented (**100%**)
 | `PARAGRAPH_CACHE_CAP` | const | src/shared/sizes.rs | 2 | ✓ |
 | `THUMBNAIL_WIDTH` | const | src/shared/sizes.rs | 5 | ✓ |
 | `THUMBNAIL_HEIGHT` | const | src/shared/sizes.rs | 8 | ✓ |
+| `GetDocumentParams` | struct | src/ui/mcp/mod.rs | 21 | ✓ |
+| `OpenDocumentParams` | struct | src/ui/mcp/mod.rs | 28 | ✓ |
+| `InsertTextParams` | struct | src/ui/mcp/mod.rs | 35 | ✓ |
+| `ReplaceRangeParams` | struct | src/ui/mcp/mod.rs | 44 | ✓ |
+| `DeleteRangeParams` | struct | src/ui/mcp/mod.rs | 55 | ✓ |
+| `InsertBlockParams` | struct | src/ui/mcp/mod.rs | 64 | ✓ |
+| `SetCursorParams` | struct | src/ui/mcp/mod.rs | 79 | ✓ |
+| `EditorMcpServer` | struct | src/ui/mcp/mod.rs | 86 | ✓ |
+| `new` | fn | src/ui/mcp/mod.rs | 96 | ✓ |
+| `with_state` | fn | src/ui/mcp/mod.rs | 104 | ✓ |
 | `mcp` | mod | src/ui/mod.rs | 2 | ✓ |
 | `gui` | mod | src/ui/mod.rs | 4 | ✓ |

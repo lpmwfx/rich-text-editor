@@ -1,6 +1,6 @@
 # `src/core/editor/commands.rs`
 
-## `pub trait Command: std::fmt::Debug`
+## `pub trait Command: std::fmt::Debug + Send`
 *Line 6 · trait*
 
 A reversible editing command.

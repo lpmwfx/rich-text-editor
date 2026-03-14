@@ -1,1 +1,3 @@
-rustdoc-viewer.exe
+@echo off
+cd /d "."
+rustdoc-viewer .

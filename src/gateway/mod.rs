@@ -1,3 +1,5 @@
-// Media asset manager — lazy loading, thumbnail cache, type detection.
-// Gateway layer: only layer that touches disk/network IO.
-// TODO: implement MediaManager with async image/video loading
+// Gateway layer — file IO operations.
+// Only layer that touches disk. Core and Adapter never do IO directly.
+
+/// File operations — open, save, read Markdown files.
+pub mod file_ops;

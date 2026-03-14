@@ -5,57 +5,85 @@
       "name": "EditorState",
       "kind": "struct",
       "signature": "pub struct EditorState",
-      "line": 11,
+      "line": 14,
       "doc": "The adapter's central state — owns the document and coordinates all layers."
     },
     {
       "name": "new",
       "kind": "fn",
       "signature": "pub fn new() -> Self",
-      "line": 26,
+      "line": 29,
       "doc": "Create a new editor state with an empty document."
     },
     {
       "name": "from_markdown",
       "kind": "fn",
       "signature": "pub fn from_markdown(input: &str) -> Self",
-      "line": 37,
+      "line": 40,
       "doc": "Create an editor state from a Markdown string."
     },
     {
       "name": "apply",
       "kind": "fn",
       "signature": "pub fn apply(&mut self, cmd: Box<dyn Command>) -> Result<(), CommandError>",
-      "line": 48,
+      "line": 51,
       "doc": "Apply a command to the document via the undo stack."
     },
     {
       "name": "undo",
       "kind": "fn",
       "signature": "pub fn undo(&mut self) -> Result<bool, CommandError>",
-      "line": 54,
+      "line": 57,
       "doc": "Undo the last command."
     },
     {
       "name": "redo",
       "kind": "fn",
       "signature": "pub fn redo(&mut self) -> Result<bool, CommandError>",
-      "line": 60,
+      "line": 63,
       "doc": "Redo the last undone command."
     },
     {
       "name": "to_markdown",
       "kind": "fn",
       "signature": "pub fn to_markdown(&self) -> String",
-      "line": 66,
+      "line": 69,
       "doc": "Get the document as a Markdown string."
+    },
+    {
+      "name": "open_file",
+      "kind": "fn",
+      "signature": "pub fn open_file(&mut self, path: &Path) -> Result<(), EditorError>",
+      "line": 74,
+      "doc": "Open a Markdown file — resets document, cursor, undo stack."
+    },
+    {
+      "name": "save_file",
+      "kind": "fn",
+      "signature": "pub fn save_file(&self) -> Result<(), EditorError>",
+      "line": 85,
+      "doc": "Save the current document to its file path."
+    },
+    {
+      "name": "save_file_as",
+      "kind": "fn",
+      "signature": "pub fn save_file_as(&mut self, path: &Path) -> Result<(), EditorError>",
+      "line": 93,
+      "doc": "Save the current document to a specific path."
     },
     {
       "name": "selected_text",
       "kind": "fn",
       "signature": "pub fn selected_text(&self) -> Option<String>",
-      "line": 71,
+      "line": 101,
       "doc": "Get the selected text, if any."
+    },
+    {
+      "name": "EditorError",
+      "kind": "enum",
+      "signature": "pub enum EditorError",
+      "line": 114,
+      "doc": "Adapter-level errors combining command and file errors."
     }
   ]
 }

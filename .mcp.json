@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "rich-text-editor": {
+      "command": "./target/release/rte",
+      "args": ["--mcp"],
+      "env": {}
+    }
+  }
+}

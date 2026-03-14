@@ -1,54 +1,52 @@
-# TODO: scaffold
+# TODO: gateway-and-mcp
 
-phase: 1
-id: scaffold
+phase: 2
+id: gateway-and-mcp
 
-## Project Setup
+## Gateway — File IO
 
 - id: 1
-  task: Verify cargo build compiles with all dependencies (skia-safe, slint, rmcp)
-  pass: cargo build succeeds with zero scanner violations
+  task: Implement file_ops module — open_document, save_document
+  pass: cargo test gateway — open .md file, modify, save, re-open matches
   status: pending
 
 - id: 2
-  task: Create Slint UI entry point importing slint-ui-templates desktop shell
-  pass: Window opens with RustUI shell chrome (nav bar, status bar, content area)
+  task: Wire gateway to EditorState — open sets document + file_path, save serializes
+  pass: EditorState.open_file() and save_file() work end-to-end
   status: pending
 
-## Document Model
+## MCP Server
 
 - id: 3
-  task: Implement Block/Inline AST types with byte_range tracking
-  pass: Document struct can represent all block/inline types from doc/project.md
+  task: Implement EditorMcpServer struct with rmcp #[tool] handlers
+  pass: cargo build compiles MCP server with all tool signatures from doc/mcp.md
   status: pending
 
 - id: 4
-  task: Implement pulldown-cmark parser (Markdown string to AST)
-  pass: cargo test document::parser — round-trip with basic Markdown
+  task: Implement document://current resource
+  pass: MCP resource returns current document as Markdown
   status: pending
 
 - id: 5
-  task: Implement AST to Markdown serializer
-  pass: cargo test document::serializer — parse then serialize returns equivalent Markdown
+  task: Implement core tools — get_document, open_document, save_document
+  pass: Tools dispatch correctly through EditorState
   status: pending
 
-## Editor State
-
 - id: 6
-  task: Implement EditorState with cursor, selection, and file path
-  pass: EditorState can be created and cursor/selection manipulated
+  task: Implement mutation tools — insert_text, replace_range, delete_range, format_range
+  pass: Each tool applies command via UndoStack, returns success
   status: pending
 
 - id: 7
-  task: Implement Command trait and basic commands (Insert, Delete, Replace)
-  pass: cargo test editor::commands — each command applies and reverses correctly
+  task: Implement undo/redo and stats tools
+  pass: undo/redo traverse stack, get_document_stats returns counts
   status: pending
 
 - id: 8
-  task: Implement UndoStack with apply/undo/redo
-  pass: cargo test editor::undo — multi-step undo/redo produces correct document state
+  task: Create .mcp.json for Claude Desktop integration
+  pass: File exists with correct command and args
   status: pending
 
 ## Blockers
 
-- skia-safe build requires ICU and textlayout feature — verify Windows build works
+(none)

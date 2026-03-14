@@ -2,6 +2,9 @@
 
 slint::include_modules!();
 
+use rich_text_editor::ui::mcp::EditorMcpServer;
+use rmcp::ServiceExt;
+
 /// Run the editor in GUI mode with Slint UI.
 fn run_gui() -> anyhow::Result<()> {
     let ui = AppWindow::new()?;
@@ -11,7 +14,7 @@ fn run_gui() -> anyhow::Result<()> {
         NavItem {
             id: "editor".into(),
             label: "Editor".into(),
-            icon: "\u{E70F}".into(), // Segoe Fluent: Edit
+            icon: "\u{E70F}".into(),
             is_header: false,
             hidden: false,
         },
@@ -28,7 +31,10 @@ async fn run_mcp() -> anyhow::Result<()> {
         .with_writer(std::io::stderr)
         .with_ansi(false)
         .init();
-    // TODO: create EditorState, start MCP server
+
+    let server = EditorMcpServer::new();
+    let service = server.serve(rmcp::transport::stdio()).await?;
+    service.waiting().await?;
     Ok(())
 }
 

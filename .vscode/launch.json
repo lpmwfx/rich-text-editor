@@ -1,0 +1,33 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "GUI",
+            "cargo": {
+                "args": ["build", "--bin=rte"],
+                "filter": {
+                    "name": "rte",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "MCP Server",
+            "cargo": {
+                "args": ["build", "--bin=rte"],
+                "filter": {
+                    "name": "rte",
+                    "kind": "bin"
+                }
+            },
+            "args": ["--mcp"],
+            "cwd": "${workspaceFolder}"
+        }
+    ]
+}

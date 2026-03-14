@@ -1,4 +1,75 @@
 {
   "source": "src/ui/mcp/mod.rs",
-  "items": []
+  "items": [
+    {
+      "name": "GetDocumentParams",
+      "kind": "struct",
+      "signature": "pub struct GetDocumentParams",
+      "line": 21,
+      "doc": "Parameters for get_document tool."
+    },
+    {
+      "name": "OpenDocumentParams",
+      "kind": "struct",
+      "signature": "pub struct OpenDocumentParams",
+      "line": 28,
+      "doc": "Parameters for open_document tool."
+    },
+    {
+      "name": "InsertTextParams",
+      "kind": "struct",
+      "signature": "pub struct InsertTextParams",
+      "line": 35,
+      "doc": "Parameters for insert_text tool."
+    },
+    {
+      "name": "ReplaceRangeParams",
+      "kind": "struct",
+      "signature": "pub struct ReplaceRangeParams",
+      "line": 44,
+      "doc": "Parameters for replace_range tool."
+    },
+    {
+      "name": "DeleteRangeParams",
+      "kind": "struct",
+      "signature": "pub struct DeleteRangeParams",
+      "line": 55,
+      "doc": "Parameters for delete_range tool."
+    },
+    {
+      "name": "InsertBlockParams",
+      "kind": "struct",
+      "signature": "pub struct InsertBlockParams",
+      "line": 64,
+      "doc": "Parameters for insert_block tool."
+    },
+    {
+      "name": "SetCursorParams",
+      "kind": "struct",
+      "signature": "pub struct SetCursorParams",
+      "line": 79,
+      "doc": "Parameters for set_cursor tool."
+    },
+    {
+      "name": "EditorMcpServer",
+      "kind": "struct",
+      "signature": "pub struct EditorMcpServer",
+      "line": 86,
+      "doc": "MCP server wrapping the editor state."
+    },
+    {
+      "name": "new",
+      "kind": "fn",
+      "signature": "pub fn new() -> Self",
+      "line": 96,
+      "doc": "Create a new MCP server with a fresh editor state."
+    },
+    {
+      "name": "with_state",
+      "kind": "fn",
+      "signature": "pub fn with_state(state: Arc<Mutex<EditorState>>) -> Self",
+      "line": 104,
+      "doc": "Create a new MCP server with existing state."
+    }
+  ]
 }

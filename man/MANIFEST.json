@@ -1,5 +1,5 @@
 {
-  "generated": "2026-03-14T15:55:53.402772400+01:00",
+  "generated": "2026-03-14T16:39:14.624454+01:00",
   "project": "project",
   "files": [
     {
@@ -11,7 +11,7 @@
     {
       "source": "src/adapter/editor_state_adp.rs",
       "man_path": "man/src/adapter/editor_state_adp.json",
-      "item_count": 8,
+      "item_count": 12,
       "undoc_count": 0
     },
     {
@@ -69,9 +69,15 @@
       "undoc_count": 0
     },
     {
+      "source": "src/gateway/file_ops.rs",
+      "man_path": "man/src/gateway/file_ops.json",
+      "item_count": 3,
+      "undoc_count": 0
+    },
+    {
       "source": "src/gateway/mod.rs",
       "man_path": "man/src/gateway/mod.json",
-      "item_count": 0,
+      "item_count": 1,
       "undoc_count": 0
     },
     {
@@ -149,7 +155,7 @@
     {
       "source": "src/ui/mcp/mod.rs",
       "man_path": "man/src/ui/mcp/mod.json",
-      "item_count": 0,
+      "item_count": 10,
       "undoc_count": 0
     },
     {
@@ -170,56 +176,84 @@
       "name": "EditorState",
       "kind": "struct",
       "source": "src/adapter/editor_state_adp.rs",
-      "line": 11,
+      "line": 14,
       "documented": true
     },
     {
       "name": "new",
       "kind": "fn",
       "source": "src/adapter/editor_state_adp.rs",
-      "line": 26,
+      "line": 29,
       "documented": true
     },
     {
       "name": "from_markdown",
       "kind": "fn",
       "source": "src/adapter/editor_state_adp.rs",
-      "line": 37,
+      "line": 40,
       "documented": true
     },
     {
       "name": "apply",
       "kind": "fn",
       "source": "src/adapter/editor_state_adp.rs",
-      "line": 48,
+      "line": 51,
       "documented": true
     },
     {
       "name": "undo",
       "kind": "fn",
       "source": "src/adapter/editor_state_adp.rs",
-      "line": 54,
+      "line": 57,
       "documented": true
     },
     {
       "name": "redo",
       "kind": "fn",
       "source": "src/adapter/editor_state_adp.rs",
-      "line": 60,
+      "line": 63,
       "documented": true
     },
     {
       "name": "to_markdown",
       "kind": "fn",
       "source": "src/adapter/editor_state_adp.rs",
-      "line": 66,
+      "line": 69,
+      "documented": true
+    },
+    {
+      "name": "open_file",
+      "kind": "fn",
+      "source": "src/adapter/editor_state_adp.rs",
+      "line": 74,
+      "documented": true
+    },
+    {
+      "name": "save_file",
+      "kind": "fn",
+      "source": "src/adapter/editor_state_adp.rs",
+      "line": 85,
+      "documented": true
+    },
+    {
+      "name": "save_file_as",
+      "kind": "fn",
+      "source": "src/adapter/editor_state_adp.rs",
+      "line": 93,
       "documented": true
     },
     {
       "name": "selected_text",
       "kind": "fn",
       "source": "src/adapter/editor_state_adp.rs",
-      "line": 71,
+      "line": 101,
+      "documented": true
+    },
+    {
+      "name": "EditorError",
+      "kind": "enum",
+      "source": "src/adapter/editor_state_adp.rs",
+      "line": 114,
       "documented": true
     },
     {
@@ -517,6 +551,34 @@
       "documented": true
     },
     {
+      "name": "read_file",
+      "kind": "fn",
+      "source": "src/gateway/file_ops.rs",
+      "line": 6,
+      "documented": true
+    },
+    {
+      "name": "write_file",
+      "kind": "fn",
+      "source": "src/gateway/file_ops.rs",
+      "line": 14,
+      "documented": true
+    },
+    {
+      "name": "FileError",
+      "kind": "enum",
+      "source": "src/gateway/file_ops.rs",
+      "line": 23,
+      "documented": true
+    },
+    {
+      "name": "file_ops",
+      "kind": "mod",
+      "source": "src/gateway/mod.rs",
+      "line": 5,
+      "documented": true
+    },
+    {
       "name": "ui",
       "kind": "mod",
       "source": "src/lib.rs",
@@ -668,6 +730,76 @@
       "kind": "const",
       "source": "src/shared/sizes.rs",
       "line": 8,
+      "documented": true
+    },
+    {
+      "name": "GetDocumentParams",
+      "kind": "struct",
+      "source": "src/ui/mcp/mod.rs",
+      "line": 21,
+      "documented": true
+    },
+    {
+      "name": "OpenDocumentParams",
+      "kind": "struct",
+      "source": "src/ui/mcp/mod.rs",
+      "line": 28,
+      "documented": true
+    },
+    {
+      "name": "InsertTextParams",
+      "kind": "struct",
+      "source": "src/ui/mcp/mod.rs",
+      "line": 35,
+      "documented": true
+    },
+    {
+      "name": "ReplaceRangeParams",
+      "kind": "struct",
+      "source": "src/ui/mcp/mod.rs",
+      "line": 44,
+      "documented": true
+    },
+    {
+      "name": "DeleteRangeParams",
+      "kind": "struct",
+      "source": "src/ui/mcp/mod.rs",
+      "line": 55,
+      "documented": true
+    },
+    {
+      "name": "InsertBlockParams",
+      "kind": "struct",
+      "source": "src/ui/mcp/mod.rs",
+      "line": 64,
+      "documented": true
+    },
+    {
+      "name": "SetCursorParams",
+      "kind": "struct",
+      "source": "src/ui/mcp/mod.rs",
+      "line": 79,
+      "documented": true
+    },
+    {
+      "name": "EditorMcpServer",
+      "kind": "struct",
+      "source": "src/ui/mcp/mod.rs",
+      "line": 86,
+      "documented": true
+    },
+    {
+      "name": "new",
+      "kind": "fn",
+      "source": "src/ui/mcp/mod.rs",
+      "line": 96,
+      "documented": true
+    },
+    {
+      "name": "with_state",
+      "kind": "fn",
+      "source": "src/ui/mcp/mod.rs",
+      "line": 104,
       "documented": true
     },
     {

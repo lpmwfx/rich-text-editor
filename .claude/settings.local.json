@@ -8,7 +8,11 @@
       "Bash(cd:*)",
       "Bash(cargo install:*)",
       "Bash(echo:*)",
-      "mcp__rulestools__check_staged"
+      "mcp__rulestools__check_staged",
+      "WebSearch",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(gh api:*)"
     ]
   }
 }

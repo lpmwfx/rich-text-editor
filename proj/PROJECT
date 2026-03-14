@@ -51,9 +51,9 @@ and MCP server for live manipulation by Claude Desktop.
 - token-driven: All visual values come from slint-ui-templates tokens/theme — no literals
 
 ## Current
-- phase: 1
-- id: scaffold
+- phase: 2
+- id: gateway-and-mcp
 - status: development
 
 ## History
-(none yet)
+- phase 1, id: scaffold — completed 2026-03-14. AST, parser, serializer, commands, undo, Slint shell. 37 tests.

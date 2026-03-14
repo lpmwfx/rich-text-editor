@@ -3,7 +3,7 @@
 use crate::core::document::{Block, Document, Inline};
 
 /// A reversible editing command.
-pub trait Command: std::fmt::Debug {
+pub trait Command: std::fmt::Debug + Send {
     /// Apply the command to the document. Returns Ok on success.
     fn apply(&self, doc: &mut Document) -> Result<(), CommandError>;
     /// Reverse the command (undo). Returns Ok on success.
@@ -92,7 +92,7 @@ pub struct DeleteRangeCommand {
     /// End offset (exclusive).
     pub end: usize,
     /// The deleted text (stored on apply for undo).
-    deleted: std::cell::RefCell<String>,
+    deleted: std::sync::Mutex<String>,
 }
 
 impl DeleteRangeCommand {
@@ -101,7 +101,7 @@ impl DeleteRangeCommand {
         Self {
             start,
             end,
-            deleted: std::cell::RefCell::new(String::new()),
+            deleted: std::sync::Mutex::new(String::new()),
         }
     }
 }
@@ -122,14 +122,14 @@ impl Command for DeleteRangeCommand {
             });
         }
         let removed: String = md.drain(self.start..self.end).collect();
-        *self.deleted.borrow_mut() = removed;
+        *self.deleted.lock().unwrap() = removed;
         *doc = Document::from_markdown(&md);
         Ok(())
     }
 
     fn undo(&self, doc: &mut Document) -> Result<(), CommandError> {
         let mut md = doc.to_markdown();
-        let deleted = self.deleted.borrow();
+        let deleted = self.deleted.lock().unwrap();
         md.insert_str(self.start, &deleted);
         *doc = Document::from_markdown(&md);
         Ok(())
@@ -150,7 +150,7 @@ pub struct ReplaceRangeCommand {
     /// Replacement text.
     pub replacement: String,
     /// The original text (stored on apply for undo).
-    original: std::cell::RefCell<String>,
+    original: std::sync::Mutex<String>,
 }
 
 impl ReplaceRangeCommand {
@@ -160,7 +160,7 @@ impl ReplaceRangeCommand {
             start,
             end,
             replacement,
-            original: std::cell::RefCell::new(String::new()),
+            original: std::sync::Mutex::new(String::new()),
         }
     }
 }
@@ -181,7 +181,7 @@ impl Command for ReplaceRangeCommand {
             });
         }
         let removed: String = md.drain(self.start..self.end).collect();
-        *self.original.borrow_mut() = removed;
+        *self.original.lock().unwrap() = removed;
         md.insert_str(self.start, &self.replacement);
         *doc = Document::from_markdown(&md);
         Ok(())
@@ -197,7 +197,7 @@ impl Command for ReplaceRangeCommand {
             });
         }
         md.drain(self.start..repl_end);
-        let original = self.original.borrow();
+        let original = self.original.lock().unwrap();
         md.insert_str(self.start, &original);
         *doc = Document::from_markdown(&md);
         Ok(())

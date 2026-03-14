@@ -1,4 +1,12 @@
 {
   "source": "src/gateway/mod.rs",
-  "items": []
+  "items": [
+    {
+      "name": "file_ops",
+      "kind": "mod",
+      "signature": "pub mod file_ops;",
+      "line": 5,
+      "doc": "File operations — open, save, read Markdown files."
+    }
+  ]
 }

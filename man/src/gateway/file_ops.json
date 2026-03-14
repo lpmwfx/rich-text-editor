@@ -1,0 +1,26 @@
+{
+  "source": "src/gateway/file_ops.rs",
+  "items": [
+    {
+      "name": "read_file",
+      "kind": "fn",
+      "signature": "pub fn read_file(path: &Path) -> Result<String, FileError>",
+      "line": 6,
+      "doc": "Read a Markdown file from disk."
+    },
+    {
+      "name": "write_file",
+      "kind": "fn",
+      "signature": "pub fn write_file(path: &Path, content: &str) -> Result<(), FileError>",
+      "line": 14,
+      "doc": "Write a Markdown string to disk."
+    },
+    {
+      "name": "FileError",
+      "kind": "enum",
+      "signature": "pub enum FileError",
+      "line": 23,
+      "doc": "File IO errors."
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+# TODO: scaffold
+
+phase: 1
+id: scaffold
+
+## Project Setup
+
+- id: 1
+  task: Verify cargo build compiles with all dependencies (skia-safe, slint, rmcp)
+  pass: cargo build succeeds with zero scanner violations
+  status: pending
+
+- id: 2
+  task: Create Slint UI entry point importing slint-ui-templates desktop shell
+  pass: Window opens with RustUI shell chrome (nav bar, status bar, content area)
+  status: pending
+
+## Document Model
+
+- id: 3
+  task: Implement Block/Inline AST types with byte_range tracking
+  pass: Document struct can represent all block/inline types from doc/project.md
+  status: pending
+
+- id: 4
+  task: Implement pulldown-cmark parser (Markdown string to AST)
+  pass: cargo test document::parser — round-trip with basic Markdown
+  status: pending
+
+- id: 5
+  task: Implement AST to Markdown serializer
+  pass: cargo test document::serializer — parse then serialize returns equivalent Markdown
+  status: pending
+
+## Editor State
+
+- id: 6
+  task: Implement EditorState with cursor, selection, and file path
+  pass: EditorState can be created and cursor/selection manipulated
+  status: pending
+
+- id: 7
+  task: Implement Command trait and basic commands (Insert, Delete, Replace)
+  pass: cargo test editor::commands — each command applies and reverses correctly
+  status: pending
+
+- id: 8
+  task: Implement UndoStack with apply/undo/redo
+  pass: cargo test editor::undo — multi-step undo/redo produces correct document state
+  status: pending
+
+## Blockers
+
+- skia-safe build requires ICU and textlayout feature — verify Windows build works

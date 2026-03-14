@@ -4,7 +4,7 @@
     {
       "name": "Command",
       "kind": "trait",
-      "signature": "pub trait Command: std::fmt::Debug",
+      "signature": "pub trait Command: std::fmt::Debug + Send",
       "line": 6,
       "doc": "A reversible editing command."
     },
