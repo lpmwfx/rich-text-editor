@@ -15,8 +15,9 @@ id: phase-2-rendering-and-mcp
 - id: R2
   task: Setup Slint render notifier callback in src/main.rs
   pass: GUI shows rendered paragraphs (not just Slint Text elements)
-  status: pending
-  notes: Wire Skia canvas to render loop via slint rendering_notifier
+  status: in-progress
+  notes: Store paragraphs in Arc<Mutex>, wire to UI state, setup click infrastructure for R3
+  foundation: Paragraph count displayed in UI; click handler ready for coordinate mapping
 
 - id: R3
   task: Implement cursor positioning via skparagraph getGlyphPositionAtCoordinate()
