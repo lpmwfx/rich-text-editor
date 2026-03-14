@@ -29,8 +29,9 @@ id: phase-2-rendering-and-mcp
 - id: R4
   task: Implement selection highlighting via skparagraph getRectsForRange()
   pass: Drag-select highlights text ranges correctly
-  status: pending
-  notes: Visual feedback for selection rectangles
+  status: in-progress
+  notes: SelectionRange_pal struct, get_selection_rects() with placeholder impl
+  foundation: Selection state tracking in place, click handler initializes range
 
 - id: R5
   task: Implement media placeholder rendering via getRectsForPlaceholders()
