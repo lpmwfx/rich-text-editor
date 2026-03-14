@@ -1,0 +1,19 @@
+{
+  "source": "src/state/limits.rs",
+  "items": [
+    {
+      "name": "MAX_UNDO_DEPTH",
+      "kind": "const",
+      "signature": "pub const MAX_UNDO_DEPTH: usize = 500;",
+      "line": 2,
+      "doc": "Maximum undo stack depth."
+    },
+    {
+      "name": "MAX_HEADING_LEVEL",
+      "kind": "const",
+      "signature": "pub const MAX_HEADING_LEVEL: u8 = 3;",
+      "line": 5,
+      "doc": "Maximum heading level supported."
+    }
+  ]
+}

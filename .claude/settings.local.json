@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__rules__get_rule",
+      "mcp__rulestools__setup",
+      "mcp__rules__search_rules",
+      "Bash(wc:*)",
+      "Bash(cd:*)",
+      "Bash(cargo install:*)",
+      "Bash(echo:*)"
+    ]
+  }
+}

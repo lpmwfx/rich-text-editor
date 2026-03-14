@@ -1,0 +1,86 @@
+# UIUX: rich-text-editor
+
+## Goal
+A rich text editor that feels native on Windows. WYSIWYG editing with Markdown
+as storage format. Real-time rendering via Skia/skparagraph. Live preview of
+MCP-driven mutations with amber highlight that fades after 2 seconds.
+
+## Platform
+- OS: Windows 11
+- Toolkit: Slint (via slint-ui-templates — Fluent 2 design system)
+- Icons: Segoe Fluent Icons (from slint-ui-templates)
+- Backdrop: Mica or Solid (via slint-ui-templates platform module)
+
+## UI Foundation Rules
+Load these via get_rule() before any UI work.
+
+| Rule | What it enforces |
+|------|-----------------|
+| uiux/tokens.md | Zero literal values in components — all values from slint-ui-templates tokens |
+| uiux/components.md | One file per component, one responsibility |
+| uiux/file-structure.md | Folders by feature area |
+| uiux/state-flow.md | State-in from adapter, events-out |
+| uiux/menus-slint.md | Slint menu patterns |
+| uiux/menus-windows.md | Windows platform menu conventions |
+| uiux/help-about.md | About dialog, license, shortcuts |
+| uiux/checklist.md | Pre-ship verification |
+
+## UI Architecture
+- Toolkit: Slint + slint-ui-templates desktop shell
+- Entry point: ui/main.slint
+- Shell: imported from slint-ui-templates (AppWindow, NavBar, SideBar, StatusBar)
+- Editor canvas: custom component using Slint render notifier for Skia rendering
+- Toolbar: formatting toolbar (bold, italic, code, heading, list, media)
+- Status bar: word count, cursor position, document stats
+
+## Component Conventions
+- All visual values from slint-ui-templates tokens (Theme, Sizes, Durations)
+- Component names PascalCase, match filename (EditorCanvas -> EditorCanvas.slint)
+- Slint components handle only: toolbar clicks, keyboard events, window size
+- All text rendering done in Skia render notifier, not in Slint components
+- MCP mutation highlight: amber background (#EF9F2720) with 2s fade animation
+
+## User Flows
+
+### Primary Flow: Edit Document
+1. User opens .md file -> parsed to AST, rendered via skparagraph
+2. User clicks in text -> cursor placed via getGlyphPositionAtCoordinate
+3. User types -> InsertTextCommand via UndoStack -> re-layout affected paragraph
+4. User selects text -> getRectsForRange highlights selection
+5. User clicks formatting button -> FormatRangeCommand via UndoStack
+
+### Secondary Flow: MCP Editing
+1. Claude Desktop sends tool call (e.g. replace_range)
+2. MCP server applies command via UndoStack
+3. UiEvent::BlockChanged sent to Slint thread
+4. Affected block re-renders with amber highlight
+5. Highlight fades after 2 seconds
+6. document://current resource notified
+
+### Secondary Flow: Media Insertion
+1. User or MCP inserts image/video path
+2. Block::Image/Video added to AST
+3. skparagraph addPlaceholder() reserves space
+4. MediaManager loads asset asynchronously
+5. Thumbnail rendered on placeholder rect via getRectsForPlaceholders
+
+## Layout
+
+### Main Window
+- Shell: slint-ui-templates AppWindow (NavBar + Content + StatusBar)
+- Content area: EditorCanvas (full Skia render notifier surface)
+- Toolbar: formatting toolbar above editor canvas
+- Status bar: word count, character count, cursor offset
+
+## Interaction Patterns
+- Loading: status bar spinner for async operations
+- Errors: status bar message for transient, dialog for permanent
+- Undo: Ctrl+Z in GUI, undo tool in MCP — both use same UndoStack
+- Selection: click-drag or Shift+arrow, double-click for word boundary
+- Scroll: vertical scrollbar, mouse wheel, page up/down
+
+## Accessibility
+- All toolbar buttons reachable by keyboard
+- Tab order: toolbar left-to-right, then editor canvas
+- Focus ring always visible
+- Minimum contrast: 4.5:1 for text (enforced by slint-ui-templates theme)

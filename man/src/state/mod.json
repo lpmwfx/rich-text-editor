@@ -1,0 +1,33 @@
+{
+  "source": "src/state/mod.rs",
+  "items": [
+    {
+      "name": "sizes",
+      "kind": "mod",
+      "signature": "pub mod sizes;",
+      "line": 2,
+      "doc": "Buffer and cache sizing constants."
+    },
+    {
+      "name": "durations",
+      "kind": "mod",
+      "signature": "pub mod durations;",
+      "line": 4,
+      "doc": "Animation and timeout durations."
+    },
+    {
+      "name": "limits",
+      "kind": "mod",
+      "signature": "pub mod limits;",
+      "line": 6,
+      "doc": "Operational limits."
+    },
+    {
+      "name": "paths",
+      "kind": "mod",
+      "signature": "pub mod paths;",
+      "line": 8,
+      "doc": "File paths and extensions."
+    }
+  ]
+}

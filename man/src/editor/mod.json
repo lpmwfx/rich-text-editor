@@ -1,0 +1,26 @@
+{
+  "source": "src/editor/mod.rs",
+  "items": [
+    {
+      "name": "commands",
+      "kind": "mod",
+      "signature": "pub mod commands;",
+      "line": 2,
+      "doc": "Editor state — cursor, selection, undo stack."
+    },
+    {
+      "name": "undo",
+      "kind": "mod",
+      "signature": "pub mod undo;",
+      "line": 4,
+      "doc": "Undo/redo stack with command pattern."
+    },
+    {
+      "name": "EditorState",
+      "kind": "struct",
+      "signature": "pub struct EditorState",
+      "line": 8,
+      "doc": "Central editor state holding the document, cursor, and undo history."
+    }
+  ]
+}

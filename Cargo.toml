@@ -1,0 +1,42 @@
+[package]
+name = "rich-text-editor"
+version = "0.1.0"
+edition = "2021"
+license = "EUPL-1.2"
+description = "Rich text editor — Slint UI, MCP-controllable, library + binary"
+
+[[bin]]
+name = "rte"
+path = "src/main.rs"
+
+[lib]
+name = "rich_text_editor"
+path = "src/lib.rs"
+
+[dependencies]
+slint = "1"
+slint-ui-templates = { path = "../RustUI" }
+toml = "0.8"
+serde = { version = "1", features = ["derive"] }
+serde_yaml = "0.9"
+pulldown-cmark = { version = "0.12", default-features = false }
+skia-safe = { version = "0.90", features = ["textlayout", "svg"] }
+syntect = "5"
+image = "0.25"
+thiserror = "2"
+anyhow = "1"
+tracing = "0.1"
+tracing-subscriber = "0.3"
+tokio = { version = "1", features = ["rt", "sync", "macros"] }
+rmcp = { version = "0.16", features = ["server", "transport-io", "macros"] }
+
+[target.'cfg(windows)'.dependencies]
+windows-sys = { version = "0.52", features = ["Win32_Graphics_Dwm", "Win32_Foundation", "Win32_UI_Controls"] }
+
+[dev-dependencies]
+i-slint-backend-testing = "1.15"
+
+[build-dependencies]
+slintscanners = { git = "https://github.com/lpmwfx/SlintScanners" }
+rustscanners = { git = "https://github.com/lpmwfx/RustScanners" }
+slint-build = "1.15"

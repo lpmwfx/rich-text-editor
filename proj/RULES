@@ -1,0 +1,40 @@
+# RULES: rich-text-editor
+
+## Active Rules
+Load these via get_rule(file: "...") at session start.
+
+### Always
+- global/topology.md
+- global/module-tree.md
+- global/file-limits.md
+- global/config-driven.md
+- global/persistent-state.md
+
+### Language: Rust
+- rust/README.md
+
+### UI (Slint — Windows)
+- uiux/tokens.md
+- uiux/components.md
+- uiux/state-flow.md
+- uiux/menus-slint.md
+- uiux/menus-windows.md
+- uiux/help-about.md
+- uiux/checklist.md
+
+## Project Rules
+Conventions specific to this codebase.
+
+- All editing mutations go through UndoStack::apply() — never mutate Document directly
+- Offsets are UTF-8 byte offsets in Document::to_markdown() output
+- MCP mode: stdout is JSON-RPC only, all logging to stderr
+- GUI mode: Slint render notifier for Skia canvas, never render text in Slint components
+- layout() is expensive — call only on width change or text mutation, not on repaint
+- updateForegroundPaint() for hover/selection color changes without layout() cost
+- Placeholder indices are position-based — keep synchronized with MediaManager
+- slint-ui-templates provides shell, theme, tokens — do not duplicate in this project
+- No unwrap() in production code — use ? or explicit error handling
+- All pub items must have /// doc comments
+
+## Derived from FIXES
+(none yet)

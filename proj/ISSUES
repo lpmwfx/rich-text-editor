@@ -1,0 +1,7 @@
+# Documentation Issues — project
+
+1 items need /// doc comments
+
+## ui/main.slint
+- line 4: `AppWindow` (component)
+

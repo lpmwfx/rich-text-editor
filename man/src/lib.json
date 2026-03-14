@@ -1,0 +1,47 @@
+{
+  "source": "src/lib.rs",
+  "items": [
+    {
+      "name": "document",
+      "kind": "mod",
+      "signature": "pub mod document;",
+      "line": 2,
+      "doc": "Rich text editor library — document model, editor state, renderer, and MCP server."
+    },
+    {
+      "name": "editor",
+      "kind": "mod",
+      "signature": "pub mod editor;",
+      "line": 4,
+      "doc": "Editor state management — cursor, selection, undo/redo."
+    },
+    {
+      "name": "renderer",
+      "kind": "mod",
+      "signature": "pub mod renderer;",
+      "line": 6,
+      "doc": "Skia/skparagraph rendering pipeline."
+    },
+    {
+      "name": "media",
+      "kind": "mod",
+      "signature": "pub mod media;",
+      "line": 8,
+      "doc": "Media asset management — lazy loading and thumbnail cache."
+    },
+    {
+      "name": "mcp",
+      "kind": "mod",
+      "signature": "pub mod mcp;",
+      "line": 10,
+      "doc": "MCP server — exposes editor as tool/resource server."
+    },
+    {
+      "name": "state",
+      "kind": "mod",
+      "signature": "pub mod state;",
+      "line": 12,
+      "doc": "Named constants and configuration values."
+    }
+  ]
+}

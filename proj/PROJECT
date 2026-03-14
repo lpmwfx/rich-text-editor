@@ -1,0 +1,54 @@
+# PROJECT: rich-text-editor
+
+## Goal
+WYSIWYG rich text editor with Markdown as the storage format and Skia/skparagraph
+for text layout and rendering. Media embedding via skparagraph placeholders.
+UI via Slint with a custom Skia render notifier. Dual-mode: standalone GUI editor
+and MCP server for live manipulation by Claude Desktop.
+
+## Stack
+- Language: Rust 2021
+- UI: Slint (via slint-ui-templates library at ../RustUI)
+- Text layout: skia-safe with textlayout feature (skparagraph)
+- Markdown parse: pulldown-cmark
+- Markdown serialize: custom AST-to-Markdown serializer
+- Async: tokio (MCP server mode only)
+- Serialization: serde + serde_yaml (YAML frontmatter)
+- Syntax highlight: syntect
+- Image decode: image crate
+- MCP server: rmcp (stdio transport)
+- Error handling: thiserror (domain) + anyhow (application)
+- Logging: tracing + tracing-subscriber (stderr in MCP mode)
+
+## Structure
+- src: src/ (lib.rs + main.rs, binary name: rte)
+- ui: ui/ (Slint files, imports from ../RustUI for shell/theme/tokens)
+- doc: doc/ (frozen source documents — project.md, mcp.md)
+- config: config/
+- proj: proj/
+- assets: assets/ (local media assets)
+
+## Method
+- Workflow: PROJECT -> FIXES -> TODO -> code -> test -> DONE
+- Branching: feature branches, never commit to main
+- Testing: cargo test, integration tests in tests/
+- Linting: cargo clippy -D warnings, cargo fmt
+- Deploy: binary release via cargo build --release
+
+## Patterns
+- document-model: All editing operates on Block/Inline AST, never on raw Markdown strings
+- command-pattern: All mutations go through UndoStack::apply(cmd, doc) — no direct mutation
+- render-notifier: Slint render notifier exposes Skia canvas; skparagraph renders there, not in Slint components
+- mother-child: AppWindow (from slint-ui-templates) owns all state; children are stateless
+- mcp-dual-mode: --mcp flag starts headless MCP server; no flag starts GUI
+- ui-event-channel: MCP layer sends UiEvent via tokio::sync::mpsc to Slint UI thread
+- placeholder-sync: Placeholder indices must stay synchronized with MediaManager asset list
+- token-driven: All visual values come from slint-ui-templates tokens/theme — no literals
+
+## Current
+- phase: 1
+- id: scaffold
+- status: development
+
+## History
+(none yet)
