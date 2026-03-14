@@ -1,4 +1,12 @@
 {
   "source": "src/core/document/serializer.rs",
-  "items": []
+  "items": [
+    {
+      "name": "serialize",
+      "kind": "fn",
+      "signature": "pub fn serialize(doc: &Document) -> String",
+      "line": 6,
+      "doc": "Serialize a Document to a Markdown string."
+    }
+  ]
 }

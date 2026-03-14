@@ -6,14 +6,14 @@
       "kind": "mod",
       "signature": "pub mod parser;",
       "line": 2,
-      "doc": "Block and Inline AST types for the document model."
+      "doc": "Markdown to AST parser using pulldown-cmark."
     },
     {
       "name": "serializer",
       "kind": "mod",
       "signature": "pub mod serializer;",
       "line": 4,
-      "doc": "AST to Markdown serializer."
+      "doc": "AST to Markdown string serializer."
     },
     {
       "name": "frontmatter",
@@ -23,32 +23,88 @@
       "doc": "YAML frontmatter parsing and serialization."
     },
     {
+      "name": "ByteRange",
+      "kind": "struct",
+      "signature": "pub struct ByteRange",
+      "line": 10,
+      "doc": "UTF-8 byte range in the source Markdown string."
+    },
+    {
       "name": "Document",
       "kind": "struct",
       "signature": "pub struct Document",
-      "line": 10,
+      "line": 19,
       "doc": "A complete document — sequence of blocks with optional frontmatter."
+    },
+    {
+      "name": "new",
+      "kind": "fn",
+      "signature": "pub fn new() -> Self",
+      "line": 28,
+      "doc": "Create an empty document with no frontmatter."
+    },
+    {
+      "name": "to_markdown",
+      "kind": "fn",
+      "signature": "pub fn to_markdown(&self) -> String",
+      "line": 36,
+      "doc": "Serialize the document to a Markdown string."
+    },
+    {
+      "name": "from_markdown",
+      "kind": "fn",
+      "signature": "pub fn from_markdown(input: &str) -> Self",
+      "line": 41,
+      "doc": "Parse a Markdown string into a Document."
+    },
+    {
+      "name": "char_count",
+      "kind": "fn",
+      "signature": "pub fn char_count(&self) -> usize",
+      "line": 46,
+      "doc": "Total character count (excluding frontmatter delimiters)."
+    },
+    {
+      "name": "word_count",
+      "kind": "fn",
+      "signature": "pub fn word_count(&self) -> usize",
+      "line": 51,
+      "doc": "Count words in the document."
+    },
+    {
+      "name": "block_count",
+      "kind": "fn",
+      "signature": "pub fn block_count(&self) -> usize",
+      "line": 56,
+      "doc": "Count blocks by type."
     },
     {
       "name": "Frontmatter",
       "kind": "struct",
       "signature": "pub struct Frontmatter",
-      "line": 19,
+      "line": 69,
       "doc": "YAML frontmatter key-value pairs."
     },
     {
       "name": "Block",
       "kind": "enum",
       "signature": "pub enum Block",
-      "line": 26,
+      "line": 76,
       "doc": "A block-level element in the document."
     },
     {
       "name": "Inline",
       "kind": "enum",
       "signature": "pub enum Inline",
-      "line": 67,
+      "line": 138,
       "doc": "An inline-level element within a block."
+    },
+    {
+      "name": "plain_text",
+      "kind": "fn",
+      "signature": "pub fn plain_text(&self) -> String",
+      "line": 158,
+      "doc": "Extract plain text from this inline element recursively."
     }
   ]
 }

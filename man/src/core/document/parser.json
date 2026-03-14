@@ -1,4 +1,12 @@
 {
   "source": "src/core/document/parser.rs",
-  "items": []
+  "items": [
+    {
+      "name": "parse",
+      "kind": "fn",
+      "signature": "pub fn parse(input: &str) -> Document",
+      "line": 8,
+      "doc": "Parse a Markdown string into a Document."
+    }
+  ]
 }

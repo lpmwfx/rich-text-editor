@@ -1,5 +1,5 @@
 {
-  "generated": "2026-03-14T14:19:32.404939200+01:00",
+  "generated": "2026-03-14T15:39:54.057112600+01:00",
   "project": "project",
   "files": [
     {
@@ -23,25 +23,25 @@
     {
       "source": "src/core/document/frontmatter.rs",
       "man_path": "man/src/core/document/frontmatter.json",
-      "item_count": 0,
+      "item_count": 2,
       "undoc_count": 0
     },
     {
       "source": "src/core/document/mod.rs",
       "man_path": "man/src/core/document/mod.json",
-      "item_count": 7,
+      "item_count": 15,
       "undoc_count": 0
     },
     {
       "source": "src/core/document/parser.rs",
       "man_path": "man/src/core/document/parser.json",
-      "item_count": 0,
+      "item_count": 1,
       "undoc_count": 0
     },
     {
       "source": "src/core/document/serializer.rs",
       "man_path": "man/src/core/document/serializer.json",
-      "item_count": 0,
+      "item_count": 1,
       "undoc_count": 0
     },
     {
@@ -181,6 +181,20 @@
       "documented": true
     },
     {
+      "name": "extract",
+      "kind": "fn",
+      "source": "src/core/document/frontmatter.rs",
+      "line": 7,
+      "documented": true
+    },
+    {
+      "name": "format",
+      "kind": "fn",
+      "source": "src/core/document/frontmatter.rs",
+      "line": 47,
+      "documented": true
+    },
+    {
       "name": "parser",
       "kind": "mod",
       "source": "src/core/document/mod.rs",
@@ -202,31 +216,101 @@
       "documented": true
     },
     {
-      "name": "Document",
+      "name": "ByteRange",
       "kind": "struct",
       "source": "src/core/document/mod.rs",
       "line": 10,
       "documented": true
     },
     {
-      "name": "Frontmatter",
+      "name": "Document",
       "kind": "struct",
       "source": "src/core/document/mod.rs",
       "line": 19,
       "documented": true
     },
     {
+      "name": "new",
+      "kind": "fn",
+      "source": "src/core/document/mod.rs",
+      "line": 28,
+      "documented": true
+    },
+    {
+      "name": "to_markdown",
+      "kind": "fn",
+      "source": "src/core/document/mod.rs",
+      "line": 36,
+      "documented": true
+    },
+    {
+      "name": "from_markdown",
+      "kind": "fn",
+      "source": "src/core/document/mod.rs",
+      "line": 41,
+      "documented": true
+    },
+    {
+      "name": "char_count",
+      "kind": "fn",
+      "source": "src/core/document/mod.rs",
+      "line": 46,
+      "documented": true
+    },
+    {
+      "name": "word_count",
+      "kind": "fn",
+      "source": "src/core/document/mod.rs",
+      "line": 51,
+      "documented": true
+    },
+    {
+      "name": "block_count",
+      "kind": "fn",
+      "source": "src/core/document/mod.rs",
+      "line": 56,
+      "documented": true
+    },
+    {
+      "name": "Frontmatter",
+      "kind": "struct",
+      "source": "src/core/document/mod.rs",
+      "line": 69,
+      "documented": true
+    },
+    {
       "name": "Block",
       "kind": "enum",
       "source": "src/core/document/mod.rs",
-      "line": 26,
+      "line": 76,
       "documented": true
     },
     {
       "name": "Inline",
       "kind": "enum",
       "source": "src/core/document/mod.rs",
-      "line": 67,
+      "line": 138,
+      "documented": true
+    },
+    {
+      "name": "plain_text",
+      "kind": "fn",
+      "source": "src/core/document/mod.rs",
+      "line": 158,
+      "documented": true
+    },
+    {
+      "name": "parse",
+      "kind": "fn",
+      "source": "src/core/document/parser.rs",
+      "line": 8,
+      "documented": true
+    },
+    {
+      "name": "serialize",
+      "kind": "fn",
+      "source": "src/core/document/serializer.rs",
+      "line": 6,
       "documented": true
     },
     {

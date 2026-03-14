@@ -1,8 +1,8 @@
 # Documentation Index
 
-Generated: 2026-03-14T14:19:32.404939200+01:00  
+Generated: 2026-03-14T15:39:54.057112600+01:00  
 Project: `project`  
-Coverage: **37/38** items documented (**97%**) — ⚠ **1 undocumented**
+Coverage: **49/50** items documented (**98%**) — ⚠ **1 undocumented**
 
 ## Files
 
@@ -11,10 +11,10 @@ Coverage: **37/38** items documented (**97%**) — ⚠ **1 undocumented**
 | [build.rs](man/build.md) | 0 | — |
 | [src/adapter/editor_state_adp.rs](man/src/adapter/editor_state_adp.md) | 1 | ✓ |
 | [src/adapter/mod.rs](man/src/adapter/mod.md) | 1 | ✓ |
-| [src/core/document/frontmatter.rs](man/src/core/document/frontmatter.md) | 0 | — |
-| [src/core/document/mod.rs](man/src/core/document/mod.md) | 7 | ✓ |
-| [src/core/document/parser.rs](man/src/core/document/parser.md) | 0 | — |
-| [src/core/document/serializer.rs](man/src/core/document/serializer.md) | 0 | — |
+| [src/core/document/frontmatter.rs](man/src/core/document/frontmatter.md) | 2 | ✓ |
+| [src/core/document/mod.rs](man/src/core/document/mod.md) | 15 | ✓ |
+| [src/core/document/parser.rs](man/src/core/document/parser.md) | 1 | ✓ |
+| [src/core/document/serializer.rs](man/src/core/document/serializer.md) | 1 | ✓ |
 | [src/core/editor/commands.rs](man/src/core/editor/commands.md) | 0 | — |
 | [src/core/editor/mod.rs](man/src/core/editor/mod.md) | 2 | ✓ |
 | [src/core/editor/undo.rs](man/src/core/editor/undo.md) | 0 | — |
@@ -42,13 +42,25 @@ Coverage: **37/38** items documented (**97%**) — ⚠ **1 undocumented**
 |---|---|---|---|---|
 | `EditorState` | struct | src/adapter/editor_state_adp.rs | 4 | ✓ |
 | `editor_state_adp` | mod | src/adapter/mod.rs | 2 | ✓ |
+| `extract` | fn | src/core/document/frontmatter.rs | 7 | ✓ |
+| `format` | fn | src/core/document/frontmatter.rs | 47 | ✓ |
 | `parser` | mod | src/core/document/mod.rs | 2 | ✓ |
 | `serializer` | mod | src/core/document/mod.rs | 4 | ✓ |
 | `frontmatter` | mod | src/core/document/mod.rs | 6 | ✓ |
-| `Document` | struct | src/core/document/mod.rs | 10 | ✓ |
-| `Frontmatter` | struct | src/core/document/mod.rs | 19 | ✓ |
-| `Block` | enum | src/core/document/mod.rs | 26 | ✓ |
-| `Inline` | enum | src/core/document/mod.rs | 67 | ✓ |
+| `ByteRange` | struct | src/core/document/mod.rs | 10 | ✓ |
+| `Document` | struct | src/core/document/mod.rs | 19 | ✓ |
+| `new` | fn | src/core/document/mod.rs | 28 | ✓ |
+| `to_markdown` | fn | src/core/document/mod.rs | 36 | ✓ |
+| `from_markdown` | fn | src/core/document/mod.rs | 41 | ✓ |
+| `char_count` | fn | src/core/document/mod.rs | 46 | ✓ |
+| `word_count` | fn | src/core/document/mod.rs | 51 | ✓ |
+| `block_count` | fn | src/core/document/mod.rs | 56 | ✓ |
+| `Frontmatter` | struct | src/core/document/mod.rs | 69 | ✓ |
+| `Block` | enum | src/core/document/mod.rs | 76 | ✓ |
+| `Inline` | enum | src/core/document/mod.rs | 138 | ✓ |
+| `plain_text` | fn | src/core/document/mod.rs | 158 | ✓ |
+| `parse` | fn | src/core/document/parser.rs | 8 | ✓ |
+| `serialize` | fn | src/core/document/serializer.rs | 6 | ✓ |
 | `commands` | mod | src/core/editor/mod.rs | 2 | ✓ |
 | `undo` | mod | src/core/editor/mod.rs | 4 | ✓ |
 | `document` | mod | src/core/mod.rs | 2 | ✓ |

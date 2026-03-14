@@ -1,4 +1,19 @@
 {
   "source": "src/core/document/frontmatter.rs",
-  "items": []
+  "items": [
+    {
+      "name": "extract",
+      "kind": "fn",
+      "signature": "pub fn extract(input: &str) -> (Option<Frontmatter>, &str)",
+      "line": 7,
+      "doc": "Extract frontmatter from a Markdown string.\nReturns (Option<Frontmatter>, body_without_frontmatter)."
+    },
+    {
+      "name": "format",
+      "kind": "fn",
+      "signature": "pub fn format(fm: &Frontmatter) -> String",
+      "line": 47,
+      "doc": "Format frontmatter for inclusion in a Markdown string."
+    }
+  ]
 }
