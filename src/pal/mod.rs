@@ -4,3 +4,5 @@ pub mod paragraph;
 pub mod cursor;
 /// Media placeholder layout and rendering.
 pub mod media;
+
+pub use paragraph::{build_paragraphs, StyledParagraph};

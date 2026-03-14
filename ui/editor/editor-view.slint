@@ -1,0 +1,72 @@
+// Editor view — renders rich text as absolutely positioned token spans.
+// Flat token model: Rust computes line-idx and x-offset, Slint places them.
+// Monospace font — char-width is constant.
+
+import { RichToken } from "../types.slint";
+
+export component EditorView inherits Rectangle {
+    in property <[RichToken]> tokens;
+    in property <int> line-count: 0;
+    in property <int> cursor-line: 0;
+    in property <int> cursor-col: 0;
+    in property <float> char-width: 8.4;
+    in property <length> line-height: 28px;
+
+    callback editor-clicked(float, float);
+
+    background: #1e1e2e;
+
+    Flickable {
+        viewport-height: root.line-count * root.line-height;
+
+        TouchArea {
+            clicked => {
+                root.editor-clicked(
+                    self.mouse-x / 1px,
+                    (self.mouse-y - parent.viewport-y) / 1px
+                );
+            }
+        }
+
+        // Active line highlight
+        Rectangle {
+            x: 0;
+            y: root.cursor-line * root.line-height;
+            width: 100%;
+            height: root.line-height;
+            background: #ffffff10;
+        }
+
+        // Flat token model — each token absolutely positioned
+        for token in root.tokens : Text {
+            x: 16px + (token.x-offset * root.char-width * 1px);
+            y: token.line-idx * root.line-height;
+            text: token.text;
+            color: token.token-color;
+            font-size: token.font-size * 1px;
+            font-weight: token.bold ? 700 : 400;
+            font-italic: token.italic;
+            font-family: "Cascadia Code, Consolas, monospace";
+            height: root.line-height;
+            vertical-alignment: center;
+        }
+
+        // Cursor
+        Rectangle {
+            x: 16px + (root.cursor-col * root.char-width * 1px);
+            y: root.cursor-line * root.line-height + 4px;
+            width: 2px;
+            height: root.line-height - 8px;
+            background: #cdd6f4;
+
+            property <bool> blink-on: true;
+            opacity: blink-on ? 1.0 : 0.0;
+            animate opacity { duration: 500ms; }
+
+            Timer {
+                interval: 530ms;
+                triggered => { parent.blink-on = !parent.blink-on; }
+            }
+        }
+    }
+}

@@ -2,3 +2,5 @@
 pub mod document;
 /// Editor commands (Insert, Delete, Format) and undo stack.
 pub mod editor;
+/// Document AST to flat token list for Slint rendering.
+pub mod tokenizer;

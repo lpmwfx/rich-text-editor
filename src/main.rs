@@ -2,49 +2,74 @@
 
 slint::include_modules!();
 
+use rich_text_editor::core::document::Document;
+use rich_text_editor::pal::build_paragraphs;
 use rich_text_editor::ui::mcp::EditorMcpServer;
 use rmcp::ServiceExt;
+use std::sync::Arc;
+use tokio::sync::Mutex;
+
+/// Sample Markdown for initial display.
+const SAMPLE_MD: &str = "\
+# Rich Text Editor
+
+This is a **bold** and *italic* demo.
+
+## Features
+
+- Markdown parsing
+- Skia/skparagraph rendering
+- Cursor and selection
+
+Here is some `inline code` in a paragraph.
+
+---
+
+[Visit example](https://example.com)
+";
 
 /// Run the editor in GUI mode with Slint UI.
 fn run_gui() -> anyhow::Result<()> {
     let ui = AppWindow::new()?;
 
-    ui.set_status_text("Rich Text Editor".into());
-    ui.set_nav_items(slint::ModelRc::new(slint::VecModel::from(vec![
-        NavItem {
-            id: "editor".into(),
-            label: "Editor".into(),
-            icon: "\u{E70F}".into(),
-            is_header: false,
-            hidden: false,
-        },
-    ])));
-    ui.set_active_view("editor".into());
+    // Parse sample markdown
+    let doc = Document::from_markdown(SAMPLE_MD);
+
+    // Build Skia paragraphs
+    let _paragraphs = build_paragraphs(&doc, 800.0)?;
+
+    // For now, just show placeholder in Slint (Skia rendering will come next)
+    ui.set_cursor_line(0);
+    ui.set_cursor_col(0);
+
+    ui.on_editor_clicked(|x, y| {
+        eprintln!("Click at ({}, {})", x, y);
+    });
 
     ui.run()?;
     Ok(())
 }
 
-/// Run the editor as a headless MCP server (stdio transport).
+/// Run the editor in MCP server mode (headless).
 async fn run_mcp() -> anyhow::Result<()> {
     tracing_subscriber::fmt()
         .with_writer(std::io::stderr)
         .with_ansi(false)
         .init();
 
-    let server = EditorMcpServer::new();
-    let service = server.serve(rmcp::transport::stdio()).await?;
-    service.waiting().await?;
+    // TODO: Wire EditorMcpServer with actual EditorState
+    eprintln!("MCP server mode not yet implemented");
+
     Ok(())
 }
 
-fn main() -> anyhow::Result<()> {
+#[tokio::main]
+async fn main() -> anyhow::Result<()> {
     let args: Vec<String> = std::env::args().collect();
+
     if args.contains(&"--mcp".to_string()) {
-        let rt = tokio::runtime::Runtime::new()?;
-        rt.block_on(run_mcp())?;
+        run_mcp().await
     } else {
-        run_gui()?;
+        run_gui()
     }
-    Ok(())
 }

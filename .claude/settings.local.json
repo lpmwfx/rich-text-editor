@@ -12,7 +12,24 @@
       "WebSearch",
       "WebFetch(domain:github.com)",
       "WebFetch(domain:raw.githubusercontent.com)",
-      "Bash(gh api:*)"
+      "Bash(gh api:*)",
+      "Bash(find src:*)",
+      "Bash(cargo check:*)",
+      "Bash(cargo tree:*)",
+      "Bash(reg add:*)",
+      "Bash(cargo build:*)",
+      "Bash(choco install:*)",
+      "Read(//d/tmp/**)",
+      "Bash(curl -L https://github.com/ninja-build/ninja/releases/download/v1.12.0/ninja-win.zip -o ninja.zip)",
+      "Bash(unzip -q ninja.zip)",
+      "Bash(cp ninja.exe /c/Users/mathi/.cargo/bin/)",
+      "Bash(ninja --version)",
+      "Bash(timeout:*)",
+      "Bash(git add:*)"
     ]
-  }
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "rich-text-editor"
+  ]
 }

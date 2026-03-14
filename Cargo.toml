@@ -15,7 +15,8 @@ path = "src/lib.rs"
 
 [dependencies]
 slint = "1"
-slint-ui-templates = { path = "../RustUI" }
+# slint-ui-templates = { path = "../RustUI" }  # Temporarily disabled — has Slint parent.* errors
+skia-safe = { version = "0.90", features = ["textlayout", "svg"] }
 toml = "0.8"
 serde = { version = "1", features = ["derive"] }
 schemars = "1"
