@@ -1,12 +1,4 @@
 {
   "source": "ui/main.slint",
-  "items": [
-    {
-      "name": "AppWindow",
-      "kind": "component",
-      "signature": "export component AppWindow inherits Window",
-      "line": 4,
-      "doc": ""
-    }
-  ]
+  "items": []
 }

@@ -1,8 +1,24 @@
 /// Rich text editor — GUI mode or MCP server mode.
 
+slint::include_modules!();
+
 /// Run the editor in GUI mode with Slint UI.
 fn run_gui() -> anyhow::Result<()> {
-    // TODO: initialize Slint AppWindow via slint-ui-templates adapter
+    let ui = AppWindow::new()?;
+
+    ui.set_status_text("Rich Text Editor".into());
+    ui.set_nav_items(slint::ModelRc::new(slint::VecModel::from(vec![
+        NavItem {
+            id: "editor".into(),
+            label: "Editor".into(),
+            icon: "\u{E70F}".into(), // Segoe Fluent: Edit
+            is_header: false,
+            hidden: false,
+        },
+    ])));
+    ui.set_active_view("editor".into());
+
+    ui.run()?;
     Ok(())
 }
 

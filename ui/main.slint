@@ -1,11 +1,8 @@
-// Rich text editor — main Slint entry point.
-// Imports theme and tokens from RustUI (slint-ui-templates).
+// Rich text editor — main entry point.
+// Imports desktop shell from slint-ui-templates (RustUI).
 
-export component AppWindow inherits Window {
-    title: "Rich Text Editor";
-    width: 900px;
-    height: 700px;
+import { AppWindow } from "desktop/app-window.slint";
+import { Colors, Spacing, Type, Settings } from "tokens/theme.slint";
+import { FluentIcons } from "tokens/fluent/mod.slint";
 
-    // TODO: integrate slint-ui-templates desktop shell
-    // TODO: add EditorCanvas, toolbar, statusbar
-}
+export { AppWindow, Colors, Settings }

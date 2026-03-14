@@ -1,8 +1,8 @@
 # Documentation Index
 
-Generated: 2026-03-14T15:50:30.175266800+01:00  
+Generated: 2026-03-14T15:55:53.402772400+01:00  
 Project: `project`  
-Coverage: **74/75** items documented (**98%**) — ⚠ **1 undocumented**
+Coverage: **74/74** items documented (**100%**)
 
 ## Files
 
@@ -34,7 +34,7 @@ Coverage: **74/75** items documented (**98%**) — ⚠ **1 undocumented**
 | [src/ui/gui/mod.rs](man/src/ui/gui/mod.md) | 0 | — |
 | [src/ui/mcp/mod.rs](man/src/ui/mcp/mod.md) | 0 | — |
 | [src/ui/mod.rs](man/src/ui/mod.md) | 2 | ✓ |
-| [ui/main.slint](man/ui/main.md) | 1 | ⚠ 1 |
+| [ui/main.slint](man/ui/main.md) | 0 | — |
 
 ## All Items
 
@@ -114,4 +114,3 @@ Coverage: **74/75** items documented (**98%**) — ⚠ **1 undocumented**
 | `THUMBNAIL_HEIGHT` | const | src/shared/sizes.rs | 8 | ✓ |
 | `mcp` | mod | src/ui/mod.rs | 2 | ✓ |
 | `gui` | mod | src/ui/mod.rs | 4 | ✓ |
-| `AppWindow` | component | ui/main.slint | 4 | ⚠ |
