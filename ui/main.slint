@@ -15,6 +15,7 @@ export component AppWindow inherits Window {
     in property <int> line-count: 0;
     in property <int> cursor-line: 0;
     in property <int> cursor-col: 0;
+    in property <image> rendered-content;
 
     callback editor-clicked(float, float);
 
@@ -48,10 +49,17 @@ export component AppWindow inherits Window {
             }
         }
 
-        // Editor area (Skia rendering happens here)
+        // Editor area — displays Skia-rendered content
         Rectangle {
             vertical-stretch: 1;
             background: #1e1e2e;
+
+            // Rendered paragraphs from Skia
+            Image {
+                source: root.rendered-content;
+                width: 100%;
+                height: 100%;
+            }
 
             TouchArea {
                 clicked => {
