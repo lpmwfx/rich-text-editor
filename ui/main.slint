@@ -74,16 +74,30 @@ export component AppWindow inherits Window {
             vertical-stretch: ViewStates.stretch-fill;
             background: Colors.bg-primary;
 
+            // Keyboard focus scope — captures key events when editor is active
+            editor-focus := FocusScope {
+                width: parent.width;
+                height: parent.height;
+                key-pressed(event) => {
+                    root.editor-key-pressed(event.text, event.modifiers.shift, event.modifiers.control, event.modifiers.alt) ? EventResult.accept : EventResult.reject
+                }
+            }
+
             // Rendered paragraphs from Skia
             Image {
                 source: root.rendered-content;
-                width: Sizes.full-pct * Sizes.hairline;
-                height: Sizes.full-pct * Sizes.hairline;
+                width: parent.width;
+                height: parent.height;
             }
 
             TouchArea {
                 clicked => {
+                    editor-focus.focus();
                     root.editor-clicked(self.mouse-x / Sizes.hairline, self.mouse-y / Sizes.hairline);
+                }
+                scroll-event(event) => {
+                    root.editor-scroll(event.delta-y / Sizes.hairline);
+                    return EventResult.accept;
                 }
             }
 
@@ -91,7 +105,7 @@ export component AppWindow inherits Window {
             Rectangle {
                 x: Sizes.zero;
                 y: root.cursor-line * Sizes.line-height;
-                width: Sizes.full-pct * Sizes.hairline;
+                width: parent.width;
                 height: Sizes.line-height;
                 background: Colors.highlight;
             }

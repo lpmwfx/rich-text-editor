@@ -41,7 +41,7 @@ export component EditorView inherits Rectangle {
         Rectangle {
             x: Sizes.zero;
             y: root.cursor-line * root.line-height;
-            width: Sizes.full-pct * Sizes.hairline;
+            width: parent.width;
             height: root.line-height;
             background: Colors.highlight;
         }

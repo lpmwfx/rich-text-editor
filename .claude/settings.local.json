@@ -30,7 +30,18 @@
       "Bash(cargo test:*)",
       "Bash(git restore:*)",
       "Bash(cargo doc:*)",
-      "Bash(git reset:*)"
+      "Bash(git reset:*)",
+      "Bash(cargo update:*)",
+      "Bash(find:*)",
+      "WebFetch(domain:docs.rs)",
+      "WebFetch(domain:releases.slint.dev)",
+      "WebFetch(domain:rust-skia.github.io)",
+      "Bash(tasklist:*)",
+      "Bash(taskkill:*)",
+      "Bash(ls:*)",
+      "mcp__rulestools__scan_tree",
+      "mcp__rules__list_rules",
+      "mcp__rulestools__scan_file"
     ]
   },
   "enableAllProjectMcpServers": true,

@@ -23,8 +23,7 @@ use std::sync::{Arc, Mutex};
 
 use rmcp::handler::server::router::tool::ToolRouter;
 use rmcp::handler::server::wrapper::Parameters;
-use rmcp::model::{ServerCapabilities, ServerInfo};
-use rmcp::{tool, tool_handler, tool_router, ServerHandler};
+use rmcp::{tool, tool_router};
 
 use crate::adapter::editor_state_adp::EditorState_adp;
 use block_kind_ui::BlockKind_ui;
