@@ -1,29 +1,41 @@
+#![allow(non_camel_case_types)]
 /// Markdown to AST parser using pulldown-cmark.
 pub mod parser;
+/// Block-level parse helpers.
+pub mod parser_blocks;
+/// Inline element parsing helpers.
+pub mod parser_inline;
+/// List and image parse helpers.
+pub mod parser_list_image;
+/// Parser tests.
+#[cfg(test)]
+mod parser_tests;
 /// AST to Markdown string serializer.
 pub mod serializer;
+/// Block serialization helpers.
+pub mod serializer_block;
+/// Serializer tests.
+#[cfg(test)]
+mod serializer_tests;
 /// YAML frontmatter parsing and serialization.
 pub mod frontmatter;
 
-/// UTF-8 byte range in the source Markdown string.
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub struct ByteRange {
-    /// Start offset (inclusive).
-    pub start: usize,
-    /// End offset (exclusive).
-    pub end: usize,
-}
+// Re-export shared document types so existing `crate::core::document::Block` imports keep working.
+pub use crate::shared::document_types_x::{
+    Block_x as Block, ByteRange_x as ByteRange, Frontmatter_x as Frontmatter,
+    Inline_x as Inline,
+};
 
 /// A complete document — sequence of blocks with optional frontmatter.
 #[derive(Debug, Clone)]
-pub struct Document {
+pub struct Document_core {
     /// YAML frontmatter metadata.
     pub frontmatter: Option<Frontmatter>,
     /// Ordered sequence of content blocks.
     pub blocks: Vec<Block>,
 }
 
-impl Document {
+impl Document_core {
     /// Create an empty document with no frontmatter.
     pub fn new() -> Self {
         Self {
@@ -58,114 +70,12 @@ impl Document {
     }
 }
 
-impl Default for Document {
+impl Default for Document_core {
     fn default() -> Self {
         Self::new()
     }
 }
 
-/// YAML frontmatter key-value pairs.
-#[derive(Debug, Clone, Default)]
-pub struct Frontmatter {
-    /// Raw YAML content (without --- delimiters).
-    pub raw: String,
-}
-
-/// A block-level element in the document.
-#[derive(Debug, Clone)]
-pub enum Block {
-    /// A paragraph containing inline elements.
-    Paragraph {
-        /// Inline content.
-        content: Vec<Inline>,
-        /// Source byte range.
-        range: Option<ByteRange>,
-    },
-    /// A heading with level (1-3) and inline content.
-    Heading {
-        /// Heading level (1-3).
-        level: u8,
-        /// Inline content of the heading.
-        content: Vec<Inline>,
-        /// Source byte range.
-        range: Option<ByteRange>,
-    },
-    /// A fenced code block with optional language tag.
-    CodeBlock {
-        /// Language identifier for syntax highlighting.
-        lang: Option<String>,
-        /// Raw code content.
-        code: String,
-        /// Source byte range.
-        range: Option<ByteRange>,
-    },
-    /// An embedded image.
-    Image {
-        /// Alt text for accessibility.
-        alt: String,
-        /// File path relative to project root.
-        path: String,
-        /// Optional caption below the image.
-        caption: Option<String>,
-        /// Source byte range.
-        range: Option<ByteRange>,
-    },
-    /// An embedded video.
-    Video {
-        /// File path relative to project root.
-        path: String,
-        /// Optional poster image path.
-        poster: Option<String>,
-        /// Source byte range.
-        range: Option<ByteRange>,
-    },
-    /// An unordered list.
-    BulletList {
-        /// List items, each containing inline elements.
-        items: Vec<Vec<Inline>>,
-        /// Source byte range.
-        range: Option<ByteRange>,
-    },
-    /// A horizontal rule separator.
-    HorizontalRule {
-        /// Source byte range.
-        range: Option<ByteRange>,
-    },
-}
-
-/// An inline-level element within a block.
-#[derive(Debug, Clone)]
-pub enum Inline {
-    /// Plain text.
-    Text(String),
-    /// Bold-formatted inline content.
-    Bold(Vec<Inline>),
-    /// Italic-formatted inline content.
-    Italic(Vec<Inline>),
-    /// Inline code span.
-    Code(String),
-    /// A hyperlink.
-    Link {
-        /// Display text.
-        text: String,
-        /// URL target.
-        url: String,
-    },
-}
-
-impl Inline {
-    /// Extract plain text from this inline element recursively.
-    pub fn plain_text(&self) -> String {
-        match self {
-            Inline::Text(s) => s.clone(),
-            Inline::Bold(children) | Inline::Italic(children) => {
-                children.iter().map(|c| c.plain_text()).collect()
-            }
-            Inline::Code(s) => s.clone(),
-            Inline::Link { text, .. } => text.clone(),
-        }
-    }
-}
 
 #[cfg(test)]
 mod tests {
@@ -173,7 +83,7 @@ mod tests {
 
     #[test]
     fn empty_document() {
-        let doc = Document::new();
+        let doc = Document_core::new();
         assert!(doc.blocks.is_empty());
         assert!(doc.frontmatter.is_none());
     }

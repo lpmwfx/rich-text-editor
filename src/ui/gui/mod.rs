@@ -1,2 +1,3 @@
-// Slint GUI surface — render notifier, toolbar, window setup.
-// TODO: wire slint-ui-templates AppAdapter to EditorState
+//! Slint GUI surface with minimal wiring.
+//!
+//! Heavy editor logic lives in the adapter layer (`EditorApp_adp` and key handling).

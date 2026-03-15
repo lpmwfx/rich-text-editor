@@ -1,18 +1,19 @@
+#![allow(non_camel_case_types)]
 // File operations — open and save Markdown documents.
 
 use std::path::Path;
 
 /// Read a Markdown file from disk.
-pub fn read_file(path: &Path) -> Result<String, FileError> {
-    std::fs::read_to_string(path).map_err(|e| FileError::ReadFailed {
+pub fn read_file(path: &Path) -> Result<String, FileError_gtw> {
+    std::fs::read_to_string(path).map_err(|e| FileError_gtw::ReadFailed {
         path: path.to_string_lossy().into_owned(),
         source: e,
     })
 }
 
 /// Write a Markdown string to disk.
-pub fn write_file(path: &Path, content: &str) -> Result<(), FileError> {
-    std::fs::write(path, content).map_err(|e| FileError::WriteFailed {
+pub fn write_file(path: &Path, content: &str) -> Result<(), FileError_gtw> {
+    std::fs::write(path, content).map_err(|e| FileError_gtw::WriteFailed {
         path: path.to_string_lossy().into_owned(),
         source: e,
     })
@@ -20,7 +21,7 @@ pub fn write_file(path: &Path, content: &str) -> Result<(), FileError> {
 
 /// File IO errors.
 #[derive(Debug, thiserror::Error)]
-pub enum FileError {
+pub enum FileError_gtw {
     /// Failed to read a file.
     #[error("failed to read {path}: {source}")]
     ReadFailed {
@@ -61,7 +62,7 @@ mod tests {
 
     #[test]
     fn read_nonexistent_file() {
-        let result = read_file(Path::new("/nonexistent/file.md"));
-        assert!(result.is_err());
+        let read_result = read_file(Path::new("/nonexistent/file.md"));
+        assert!(read_result.is_err());
     }
 }

@@ -43,6 +43,13 @@ and MCP server for live manipulation by Claude Desktop.
 ## Patterns
 - document-model: All editing operates on Block/Inline AST, never on raw Markdown strings
 - command-pattern: All mutations go through UndoStack::apply(cmd, doc) — no direct mutation
+- skparagraph-engine: Skparagraph er editor-motoren, ikke bare en renderer.
+  Paragraph.paint() tegner, get_glyph_position_at_coordinate() håndterer cursor,
+  get_rects_for_range() tegner selection, get_line_metrics() driver navigation.
+  Slint er vindues-ramme med FocusScope for keyboard events.
+- shared-pixel-buffer: Skia renderer til SharedPixelBuffer<Rgba8Pixel>,
+  ikke PNG-filer. slint::Image::from_rgba8_premultiplied() viser resultatet.
+  Re-render på hver state-ændring (keystroke, klik, scroll).
 - render-notifier: Slint render notifier exposes Skia canvas; skparagraph renders there, not in Slint components
 - mother-child: AppWindow (from slint-ui-templates) owns all state; children are stateless
 - mcp-dual-mode: --mcp flag starts headless MCP server; no flag starts GUI
@@ -51,10 +58,11 @@ and MCP server for live manipulation by Claude Desktop.
 - token-driven: All visual values come from slint-ui-templates tokens/theme — no literals
 
 ## Current
-- phase: 2
-- id: phase-2-rendering-and-mcp
+- phase: 3
+- id: phase-3-skparagraph-engine
 - status: development
-- focus: Skparagraph rendering foundation (R1-R5) — gateway and MCP follow
+- focus: Skparagraph as full editor engine (E1-E10) — SharedPixelBuffer, ParagraphCache, hit testing, editor loop
 
 ## History
 - phase 1, id: scaffold — completed 2026-03-14. AST, parser, serializer, commands, undo, Slint shell. 37 tests.
+- phase 2, id: rendering-and-mcp — completed 2026-03-14. R1-R5 Skparagraph rendering foundation, MCP server handlers.

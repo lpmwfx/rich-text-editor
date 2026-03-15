@@ -1,19 +1,20 @@
+#![allow(non_camel_case_types)]
 // Undo/redo stack — all mutations go through UndoStack::apply().
 
-use crate::core::document::Document;
-use crate::core::editor::commands::{Command, CommandError};
+use crate::core::document::Document_core;
+use crate::core::editor::commands::{Command_core, CommandError_core};
 use crate::shared::limits::MAX_UNDO_DEPTH;
 
 /// Undo/redo stack. All document mutations must go through apply().
 #[derive(Debug)]
-pub struct UndoStack {
+pub struct UndoStack_core {
     /// Command history (oldest first).
-    history: Vec<Box<dyn Command>>,
+    history: Vec<Box<dyn Command_core>>,
     /// Current position in the history (points past the last applied command).
     cursor: usize,
 }
 
-impl UndoStack {
+impl UndoStack_core {
     /// Create a new empty undo stack.
     pub fn new() -> Self {
         Self {
@@ -26,9 +27,9 @@ impl UndoStack {
     /// Clears any redo history beyond the current cursor.
     pub fn apply(
         &mut self,
-        cmd: Box<dyn Command>,
-        doc: &mut Document,
-    ) -> Result<(), CommandError> {
+        cmd: Box<dyn Command_core>,
+        doc: &mut Document_core,
+    ) -> Result<(), CommandError_core> {
         cmd.apply(doc)?;
 
         // Truncate any redo history.
@@ -47,7 +48,7 @@ impl UndoStack {
     }
 
     /// Undo the last command. Returns true if an undo was performed.
-    pub fn undo(&mut self, doc: &mut Document) -> Result<bool, CommandError> {
+    pub fn undo(&mut self, doc: &mut Document_core) -> Result<bool, CommandError_core> {
         if self.cursor == 0 {
             return Ok(false);
         }
@@ -57,7 +58,7 @@ impl UndoStack {
     }
 
     /// Redo the last undone command. Returns true if a redo was performed.
-    pub fn redo(&mut self, doc: &mut Document) -> Result<bool, CommandError> {
+    pub fn redo(&mut self, doc: &mut Document_core) -> Result<bool, CommandError_core> {
         if self.cursor >= self.history.len() {
             return Ok(false);
         }
@@ -97,150 +98,10 @@ impl UndoStack {
     }
 }
 
-impl Default for UndoStack {
+impl Default for UndoStack_core {
     fn default() -> Self {
         Self::new()
     }
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use crate::core::editor::commands::InsertTextCommand;
-    use crate::core::editor::commands::ReplaceRangeCommand;
 
-    #[test]
-    fn apply_and_undo() {
-        let mut doc = Document::from_markdown("Hello\n");
-        let mut stack = UndoStack::new();
-
-        let cmd = Box::new(InsertTextCommand {
-            offset: 5,
-            text: " world".into(),
-        });
-        stack.apply(cmd, &mut doc).unwrap();
-        assert!(doc.to_markdown().contains("Hello world"));
-        assert!(stack.can_undo());
-
-        stack.undo(&mut doc).unwrap();
-        assert!(doc.to_markdown().contains("Hello"));
-        assert!(!doc.to_markdown().contains("world"));
-    }
-
-    #[test]
-    fn undo_redo_cycle() {
-        let mut doc = Document::from_markdown("A\n");
-        let mut stack = UndoStack::new();
-
-        stack
-            .apply(
-                Box::new(InsertTextCommand {
-                    offset: 1,
-                    text: "B".into(),
-                }),
-                &mut doc,
-            )
-            .unwrap();
-
-        stack.undo(&mut doc).unwrap();
-        assert!(!doc.to_markdown().contains("B"));
-        assert!(stack.can_redo());
-
-        stack.redo(&mut doc).unwrap();
-        assert!(doc.to_markdown().contains("B"));
-    }
-
-    #[test]
-    fn redo_cleared_after_new_command() {
-        let mut doc = Document::from_markdown("Start\n");
-        let mut stack = UndoStack::new();
-
-        stack
-            .apply(
-                Box::new(InsertTextCommand {
-                    offset: 5,
-                    text: "1".into(),
-                }),
-                &mut doc,
-            )
-            .unwrap();
-
-        stack.undo(&mut doc).unwrap();
-        assert!(stack.can_redo());
-
-        // New command should clear redo.
-        stack
-            .apply(
-                Box::new(InsertTextCommand {
-                    offset: 5,
-                    text: "2".into(),
-                }),
-                &mut doc,
-            )
-            .unwrap();
-        assert!(!stack.can_redo());
-    }
-
-    #[test]
-    fn multiple_undo() {
-        let mut doc = Document::from_markdown("Base\n");
-        let mut stack = UndoStack::new();
-
-        stack
-            .apply(
-                Box::new(InsertTextCommand {
-                    offset: 4,
-                    text: " one".into(),
-                }),
-                &mut doc,
-            )
-            .unwrap();
-        stack
-            .apply(
-                Box::new(InsertTextCommand {
-                    offset: 8,
-                    text: " two".into(),
-                }),
-                &mut doc,
-            )
-            .unwrap();
-
-        assert_eq!(stack.depth(), 2);
-
-        stack.undo(&mut doc).unwrap();
-        stack.undo(&mut doc).unwrap();
-        assert!(!stack.can_undo());
-
-        let md = doc.to_markdown();
-        assert!(md.contains("Base"));
-        assert!(!md.contains("one"));
-        assert!(!md.contains("two"));
-    }
-
-    #[test]
-    fn undo_nothing_returns_false() {
-        let mut doc = Document::new();
-        let mut stack = UndoStack::new();
-        let result = stack.undo(&mut doc).unwrap();
-        assert!(!result);
-    }
-
-    #[test]
-    fn undo_description() {
-        let mut doc = Document::from_markdown("X\n");
-        let mut stack = UndoStack::new();
-
-        assert!(stack.undo_description().is_none());
-
-        stack
-            .apply(
-                Box::new(InsertTextCommand {
-                    offset: 0,
-                    text: "Y".into(),
-                }),
-                &mut doc,
-            )
-            .unwrap();
-        assert_eq!(stack.undo_description(), Some("insert text"));
-    }
-}

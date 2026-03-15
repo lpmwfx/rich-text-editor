@@ -1,49 +1,69 @@
-// Rich text editor — minimal Slint UI.
-// Renders via Skia canvas in render notifier callback (not in Slint components).
-
+/// Rich text editor Slint UI shell.
+///
+/// Rendering happens in Rust/Skia, while this component handles layout and input wiring.
 import { RichToken } from "types.slint";
+import { Colors } from "globals/theme.slint";
+import { Spacing } from "globals/theme.slint";
+import { Sizes } from "state/sizes.slint";
+import { Durations } from "state/durations.slint";
+import { ViewStates } from "state/view-states.slint";
 
 export { RichToken }
 
+/// Main application window.
 export component AppWindow inherits Window {
-    title: "Rich Text Editor";
-    width: 900px;
-    height: 600px;
-    background: #1e1e2e;
+    in property <string> window-title: "Rich Text Editor";
+    title: root.window-title;
+    width: Sizes.window-width;
+    height: Sizes.window-height;
+    background: Colors.bg-primary;
 
+    /// Flat token list for debug/status rendering.
     in property <[RichToken]> tokens;
-    in property <int> line-count: 0;
-    in property <int> cursor-line: 0;
-    in property <int> cursor-col: 0;
+    /// Total number of visual lines.
+    in property <int> line-count;
+    /// One-based cursor line shown in the toolbar.
+    in property <int> cursor-line;
+    /// One-based cursor column shown in the toolbar.
+    in property <int> cursor-col;
+    /// Current frame rendered by Rust/Skia.
     in property <image> rendered-content;
 
+    /// Emitted when the editor area is clicked.
     callback editor-clicked(float, float);
+    /// Emitted when a key is pressed. Returns whether the key was consumed.
+    callback editor-key-pressed(string, bool, bool, bool) -> bool;
+    /// Emitted when the editor is scrolled.
+    callback editor-scroll(float);
 
     VerticalLayout {
-        spacing: 0;
+        spacing: Sizes.zero;
 
         // Toolbar
         Rectangle {
-            height: 40px;
-            background: #313244;
+            height: Sizes.toolbar-height;
+            background: Colors.bg-surface;
 
             HorizontalLayout {
-                padding: 8px;
-                spacing: 8px;
+                padding: Spacing.sm;
+                spacing: Spacing.sm;
 
                 Text {
-                    text: "📝 Rich Text Editor";
-                    color: #cdd6f4;
-                    font-size: 14px;
+                    in property <string> label: "Rich Text Editor";
+                    text: root.window-title;
+                    color: Colors.text-primary;
+                    font-size: Sizes.font-size-md;
                     vertical-alignment: center;
                 }
 
-                Rectangle { horizontal-stretch: 1; }
+                Rectangle { horizontal-stretch: ViewStates.stretch-fill; }
 
                 Text {
-                    text: "Line: " + root.cursor-line + " Col: " + root.cursor-col;
-                    color: #a6adc8;
-                    font-size: 12px;
+                    in property <string> line-label: "Line: ";
+                    in property <string> col-label: " Col: ";
+                    text: self.line-label + root.cursor-line + self.col-label + root.cursor-col;
+                    color: Colors.text-secondary;
+                    font-size: Sizes.font-size-sm;
                     vertical-alignment: center;
                 }
             }
@@ -51,81 +71,83 @@ export component AppWindow inherits Window {
 
         // Editor area — displays Skia-rendered content
         Rectangle {
-            vertical-stretch: 1;
-            background: #1e1e2e;
+            vertical-stretch: ViewStates.stretch-fill;
+            background: Colors.bg-primary;
 
             // Rendered paragraphs from Skia
             Image {
                 source: root.rendered-content;
-                width: 100%;
-                height: 100%;
+                width: Sizes.full-pct * Sizes.hairline;
+                height: Sizes.full-pct * Sizes.hairline;
             }
 
             TouchArea {
                 clicked => {
-                    root.editor-clicked(self.mouse-x / 1px, self.mouse-y / 1px);
+                    root.editor-clicked(self.mouse-x / Sizes.hairline, self.mouse-y / Sizes.hairline);
                 }
             }
 
             // Active line highlight
             Rectangle {
-                x: 0;
-                y: root.cursor-line * 28px;
-                width: 100%;
-                height: 28px;
-                background: #ffffff10;
+                x: Sizes.zero;
+                y: root.cursor-line * Sizes.line-height;
+                width: Sizes.full-pct * Sizes.hairline;
+                height: Sizes.line-height;
+                background: Colors.highlight;
             }
 
             // Cursor
             Rectangle {
-                x: 16px + (root.cursor-col * 8.4px);
-                y: root.cursor-line * 28px + 4px;
-                width: 2px;
-                height: 20px;
-                background: #cdd6f4;
+                x: Spacing.md + (root.cursor-col * Sizes.char-width * Sizes.hairline);
+                y: root.cursor-line * Sizes.line-height + Spacing.xs;
+                width: Sizes.caret-width;
+                height: Sizes.cursor-height;
+                background: Colors.text-primary;
 
                 property <bool> blink-on: true;
-                opacity: blink-on ? 1.0 : 0.0;
-                animate opacity { duration: 500ms; }
+                opacity: blink-on ? ViewStates.opacity-on : ViewStates.opacity-off;
+                animate opacity { duration: Durations.blink; }
 
                 Timer {
-                    interval: 530ms;
+                    interval: Durations.blink-interval;
                     triggered => { parent.blink-on = !parent.blink-on; }
                 }
             }
 
             // Debug info
             Text {
-                x: 16px;
-                y: 8px;
+                x: Spacing.md;
+                y: Spacing.sm;
                 text: root.tokens.length + " tokens | " + root.line-count + " lines";
-                color: #6c7086;
-                font-size: 12px;
+                color: Colors.text-muted;
+                font-size: Sizes.font-size-sm;
             }
         }
 
         // Status bar
         Rectangle {
-            height: 32px;
-            background: #313244;
+            height: Sizes.statusbar-height;
+            background: Colors.bg-surface;
 
             HorizontalLayout {
-                padding: 8px;
-                spacing: 8px;
+                padding: Spacing.sm;
+                spacing: Spacing.sm;
 
                 Text {
-                    text: "Ready";
-                    color: #a6adc8;
-                    font-size: 12px;
+                    in property <string> status-label: "Ready";
+                    text: self.status-label;
+                    color: Colors.text-secondary;
+                    font-size: Sizes.font-size-sm;
                     vertical-alignment: center;
                 }
 
-                Rectangle { horizontal-stretch: 1; }
+                Rectangle { horizontal-stretch: ViewStates.stretch-fill; }
 
                 Text {
-                    text: "Ctrl+S: Save  |  Ctrl+Z: Undo  |  Ctrl+Y: Redo";
-                    color: #6c7086;
-                    font-size: 11px;
+                    in property <string> shortcuts-label: "Ctrl+S: Save  |  Ctrl+Z: Undo  |  Ctrl+Y: Redo";
+                    text: self.shortcuts-label;
+                    color: Colors.text-muted;
+                    font-size: Sizes.font-size-xs;
                     vertical-alignment: center;
                 }
             }

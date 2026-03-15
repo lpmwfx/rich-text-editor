@@ -1,67 +1,94 @@
-// Cursor and selection rectangle computation via skparagraph APIs.
+#![allow(non_camel_case_types)]
+// Cursor positioning via skparagraph APIs — PAL layer.
 
-use skia_safe::{textlayout::Paragraph, Point};
+use crate::pal::paragraph_cache::ParagraphCache_pal;
+use skia_safe::Point;
 
-/// Cursor position information (visual rendering bounds) — PAL layer.
+pub use crate::pal::cursor_rect_pal::cursor_rect;
+
+/// Cursor position in the document (paragraph index + offset within paragraph).
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct CursorPosition_pal {
+    /// Index of the paragraph entry in the cache.
+    pub entry_index: usize,
+    /// Character offset within the paragraph's plain text.
+    pub offset_in_paragraph: usize,
+}
+
+/// Cursor visual info for rendering (absolute pixel coordinates).
 #[derive(Debug, Clone, Copy)]
 pub struct CursorInfo_pal {
+    /// X position in pixels.
     pub x: f32,
+    /// Y position in pixels.
     pub y: f32,
+    /// Width of the caret (typically 2px).
     pub width: f32,
+    /// Height of the caret.
     pub height: f32,
 }
 
-/// Cursor offset information (document position) — PAL layer.
-#[derive(Debug, Clone, Copy)]
-pub struct CursorOffset_pal {
-    pub offset: usize,
-    pub line: usize,
+/// Map a click coordinate to a cursor position using skparagraph hit testing.
+pub fn hit_test(cache: &ParagraphCache_pal, x: f32, y: f32) -> CursorPosition_pal {
+    if let Some((entry_idx, entry)) = cache.paragraph_at_y(y) {
+        let local_x = x - cache.left_padding();
+        let local_y = y - entry.y_offset;
+
+        let pos = entry
+            .paragraph
+            .get_glyph_position_at_coordinate(Point::new(local_x, local_y));
+
+        let offset = (pos.position as usize).min(entry.text_len);
+
+        CursorPosition_pal {
+            entry_index: entry_idx,
+            offset_in_paragraph: offset,
+        }
+    } else {
+        CursorPosition_pal {
+            entry_index: 0,
+            offset_in_paragraph: 0,
+        }
+    }
 }
 
-
-/// Cursor width and height constants (pixels)
-const CURSOR_WIDTH: f32 = 2.0;
-const CURSOR_HEIGHT: f32 = 20.0;
-/// Character width in pixels (monospace font approximation)
-const CHAR_WIDTH: f32 = 8.4;
-
-/// Map click coordinates to document offset using skparagraph API.
-///
-/// Uses paragraph.getGlyphPositionAtCoordinate() to find the character position
-/// at the given pixel coordinates within the paragraph.
-pub fn coordinate_to_offset(paragraph: &Paragraph, click_x: f32, click_y: f32) -> CursorOffset_pal {
-    // Get glyph position at the click coordinates
-    // Note: getGlyphPositionAtCoordinate takes a Point and returns PositionWithAffinity
-    let click_point = Point::new(click_x, click_y);
-    let position = paragraph.get_glyph_position_at_coordinate(click_point);
-
-    // Extract the character offset from the position
-    // The offset represents the character index in the text
-    let offset = position.position as usize;
-
-    // For now, line number is derived from offset (would need proper line tracking in real impl)
-    let line = (click_y / CURSOR_HEIGHT).floor() as usize;
-
-    CursorOffset_pal { offset, line }
-}
-
-/// Get cursor visual rect for rendering at a given offset.
-pub fn get_cursor_rect(offset: usize) -> CursorInfo_pal {
-    CursorInfo_pal {
-        x: offset as f32 * CHAR_WIDTH,
-        y: 0.0,
-        width: CURSOR_WIDTH,
-        height: CURSOR_HEIGHT,
+/// Convert a CursorPosition_pal to (line, column) for display.
+pub fn line_col(cache: &ParagraphCache_pal, pos: &CursorPosition_pal) -> (usize, usize) {
+    if let Some(entry) = cache.entry(pos.entry_index) {
+        let line = entry
+            .paragraph
+            .get_line_number_at(pos.offset_in_paragraph)
+            .unwrap_or(0);
+        (pos.entry_index + line, pos.offset_in_paragraph)
+    } else {
+        (0, 0)
     }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::core::document::Document_core;
+    use crate::shared::sizes::CARET_WIDTH_PX;
 
     #[test]
-    fn test_cursor_info() {
-        let cursor = get_cursor_rect(5);
-        assert_eq!(cursor.width, CURSOR_WIDTH);
+    fn test_hit_test_basic() {
+        let doc = Document_core::from_markdown("# Hello\n\nWorld\n");
+        let cache = ParagraphCache_pal::rebuild(&doc.blocks, &doc.to_markdown(), 800.0);
+        let pos = hit_test(&cache, 50.0, 20.0);
+        assert_eq!(pos.entry_index, 0);
+    }
+
+    #[test]
+    fn test_cursor_rect_basic() {
+        let doc = Document_core::from_markdown("Hello\n");
+        let cache = ParagraphCache_pal::rebuild(&doc.blocks, &doc.to_markdown(), 800.0);
+        let pos = CursorPosition_pal {
+            entry_index: 0,
+            offset_in_paragraph: 0,
+        };
+        let rect = cursor_rect(&cache, &pos);
+        assert_eq!(rect.width, CARET_WIDTH_PX);
+        assert!(rect.height > 0.0);
     }
 }

@@ -1,3 +1,4 @@
+#![allow(non_camel_case_types)]
 // Media placeholder rendering via skparagraph getRectsForPlaceholders() — PAL layer.
 
 use skia_safe::textlayout::Paragraph;
@@ -46,7 +47,7 @@ mod tests {
     #[test]
     fn test_get_media_placeholders_empty() {
         // Placeholder test — real API will be tested with actual paragraphs
-        let placeholders = vec![];
+        let placeholders: Vec<MediaPlaceholder_pal> = vec![];
         assert!(placeholders.is_empty());
     }
 }

@@ -1,0 +1,18 @@
+/// Solid theme — Catppuccin Mocha palette with light+dark support.
+export global Colors {
+    in property <bool> dark-mode: true;
+    out property <color> bg-primary:     dark-mode ? #1e1e2e : #eff1f5;
+    out property <color> bg-surface:     dark-mode ? #313244 : #ccd0da;
+    out property <color> text-primary:   dark-mode ? #cdd6f4 : #4c4f69;
+    out property <color> text-secondary: dark-mode ? #a6adc8 : #6c6f85;
+    out property <color> text-muted:     dark-mode ? #6c7086 : #9ca0b0;
+    out property <color> accent:         dark-mode ? #89b4fa : #1e66f5;
+    out property <color> highlight:      dark-mode ? #ffffff10 : #00000010;
+    out property <color> selection:      dark-mode ? #89b4fa40 : #1e66f540;
+}
+
+export global Effects {
+    in property <bool> dark-mode: true;
+    out property <float> surface-opacity: 1.0;
+    out property <length> blur-radius: 0px;
+}

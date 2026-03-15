@@ -1,89 +1,84 @@
-# TODO: phase-2-rendering-and-mcp
+# TODO: phase-3-skparagraph-engine
 
-phase: 2
-id: phase-2-rendering-and-mcp
+phase: 3
+id: phase-3-skparagraph-engine
 
-## Skparagraph Rendering (Foundation — ACTIVE)
+## E1 — SharedPixelBuffer render pipeline
 
-- id: R1
-  task: Implement skia::textlayout::ParagraphBuilder in src/pal/paragraph.rs
-  pass: Document blocks render as Skia Paragraphs with correct text layout
-  status: done
-  notes: Implemented real ParagraphBuilder with FontCollection, TextStyle, layout()
-  completed: 2026-03-14
-
-- id: R2
-  task: Setup Slint render notifier callback in src/main.rs
-  pass: GUI shows rendered paragraphs (not just Slint Text elements)
-  status: done
-  notes: Paragraphs stored in Arc<Mutex>, paragraph count wired to UI
-  completed: 2026-03-14
-
-- id: R3
-  task: Implement cursor positioning via skparagraph getGlyphPositionAtCoordinate()
-  pass: Mouse click places cursor at correct document offset
-  status: done
-  notes: coordinate_to_offset() in src/pal/cursor.rs, click handler wired, logs offset
-  completed: 2026-03-14
-
-- id: R4
-  task: Implement selection highlighting via skparagraph getRectsForRange()
-  pass: Drag-select highlights text ranges correctly
-  status: done
-  notes: SelectionRange_pal and SelectionRect_pal in src/pal/selection.rs
-  completed: 2026-03-14
-
-- id: R5
-  task: Implement media placeholder rendering via getRectsForPlaceholders()
-  pass: Image/video placeholders display correctly in document
-  status: done
-  notes: MediaPlaceholder_pal with MediaType_pal in src/pal/media_rendering.rs
-  completed: 2026-03-14
-
-## Gateway — File IO
-
-- id: G1
-  task: Implement file_ops module — open_document, save_document
-  pass: cargo test gateway — open .md file, modify, save, re-open matches
+- id: E1
+  task: Rewrite src/render.rs — PNG file rendering to in-memory SharedPixelBuffer
+  pass: Window shows identical content without writing files
   status: pending
 
-- id: G2
-  task: Wire gateway to EditorState — open sets document + file_path, save serializes
-  pass: EditorState.open_file() and save_file() work end-to-end
+## E2 — ParagraphCache in PAL
+
+- id: E2
+  task: New src/pal/paragraph_cache.rs — cache with y-offsets, total_height, paragraph_at_y
+  pass: Unit test — cache from sample doc, total_height() > 0
   status: pending
 
-## MCP Server
+## E3 — Hit testing with real skparagraph APIs
 
-- id: M1
-  task: Implement EditorMcpServer struct with rmcp #[tool] handlers
-  pass: cargo build compiles MCP server with all tool signatures from doc/mcp.md
+- id: E3
+  task: Rewrite src/pal/cursor.rs — use get_glyph_position_at_coordinate, remove CHAR_WIDTH
+  pass: Click at known coordinates gives correct offset
   status: pending
 
-- id: M2
-  task: Implement document://current resource
-  pass: MCP resource returns current document as Markdown
+## E4 — Selection with get_rects_for_range
+
+- id: E4
+  task: Rewrite src/pal/selection.rs — use paragraph.get_rects_for_range()
+  pass: Selection rects match visible glyph positions
   status: pending
 
-- id: M3
-  task: Implement core tools — get_document, open_document, save_document
-  pass: Tools dispatch correctly through EditorState
-  status: pending
+## E5 — Editor loop and keyboard input
 
-- id: M4
-  task: Implement mutation tools — insert_text, replace_range, delete_range, format_range
-  pass: Each tool applies command via UndoStack, returns success
+- id: E5
+  task: Rewrite src/main.rs and ui/main.slint — FocusScope, live editing, cursor rendering
+  pass: Type characters and they appear. Backspace deletes. Ctrl+Z undoes.
   status: pending
+  depends: E1, E2, E3, E4
 
-- id: M5
-  task: Implement undo/redo and stats tools
-  pass: undo/redo traverse stack, get_document_stats returns counts
-  status: pending
+## E6 — Arrow key navigation
 
-- id: M6
-  task: Create .mcp.json for Claude Desktop integration
-  pass: File exists with correct command and args
+- id: E6
+  task: New src/pal/navigation.rs — move left/right/up/down/home/end with line metrics
+  pass: Arrow keys navigate correctly within and between paragraphs
   status: pending
+  depends: E5
+
+## E7 — Selection via shift+arrow and mouse drag
+
+- id: E7
+  task: Wire shift+arrow, mouse drag, double-click word select
+  pass: Shift+Right selects. Click-drag highlights. Double-click selects word.
+  status: pending
+  depends: E6
+
+## E8 — Scrolling
+
+- id: E8
+  task: Mouse wheel scroll, auto-scroll to cursor, clamp scroll_y
+  pass: Mouse wheel scrolls. Typing at bottom auto-scrolls down.
+  status: pending
+  depends: E5
+
+## E9 — Undo coalescing
+
+- id: E9
+  task: Consecutive character inserts within 300ms group as one undo entry
+  pass: "hello" fast = one undo. Pause = new undo group.
+  status: pending
+  depends: E5
+
+## E10 — Cleanup and compliance
+
+- id: E10
+  task: Remove deprecated functions, split large files, cargo clippy clean
+  pass: Pre-commit hook passes, no unused code
+  status: pending
+  depends: E6, E7, E8, E9
 
 ## Blockers
 
-(none) — Skparagraph rendering tasks (R1-R5) take priority; gateway/MCP follow after
+(none)

@@ -1,15 +1,21 @@
-// Selection highlighting via skparagraph getRectsForRange() — PAL layer.
+#![allow(non_camel_case_types)]
+// Selection highlighting via skparagraph get_rects_for_range() — PAL layer.
 
-use skia_safe::textlayout::Paragraph;
+use crate::pal::cursor::CursorPosition_pal;
+use crate::pal::paragraph_cache::ParagraphCache_pal;
 
-/// Selection range (start and end offsets in the document).
+pub use crate::pal::selection_rects_pal::selection_rects;
+
+/// Selection range as two cursor positions.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct SelectionRange_pal {
-    pub start: usize,
-    pub end: usize,
+    /// Anchor (where selection started).
+    pub anchor: CursorPosition_pal,
+    /// Head (where selection ends / cursor is).
+    pub head: CursorPosition_pal,
 }
 
-/// Selection rectangle for rendering (visual bounding box).
+/// Selection rectangle for rendering (absolute pixel coordinates).
 #[derive(Debug, Clone, Copy)]
 pub struct SelectionRect_pal {
     pub x: f32,
@@ -18,88 +24,108 @@ pub struct SelectionRect_pal {
     pub height: f32,
 }
 
-
-/// Selection highlight color constants (ARGB)
-const SELECTION_ALPHA: u8 = 100;
-const SELECTION_R: u8 = 100;
-const SELECTION_G: u8 = 150;
-const SELECTION_B: u8 = 255;
-
 impl SelectionRange_pal {
     /// Create a new selection range.
-    pub fn new(start: usize, end: usize) -> Self {
-        let (start, end) = if start <= end {
-            (start, end)
-        } else {
-            (end, start)
-        };
-        SelectionRange_pal { start, end }
+    pub fn new(anchor: CursorPosition_pal, head: CursorPosition_pal) -> Self {
+        Self { anchor, head }
     }
 
-    /// Check if range is empty (start == end).
+    /// Check if the selection is empty (anchor == head).
     pub fn is_empty(&self) -> bool {
-        self.start == self.end
+        self.anchor == self.head
     }
 
-    /// Get the length of the selected text.
-    pub fn len(&self) -> usize {
-        self.end.saturating_sub(self.start)
+    /// Get the normalized (start, end) with start <= end.
+    pub fn normalized(&self) -> (CursorPosition_pal, CursorPosition_pal) {
+        if self.anchor.entry_index < self.head.entry_index
+            || (self.anchor.entry_index == self.head.entry_index
+                && self.anchor.offset_in_paragraph <= self.head.offset_in_paragraph)
+        {
+            (self.anchor, self.head)
+        } else {
+            (self.head, self.anchor)
+        }
     }
 }
 
-/// Get selection rectangles for a text range using skparagraph.
-///
-/// Uses paragraph.getRectsForRange() to compute the bounding boxes for
-/// the selected text, handling multi-line selections correctly.
-///
-/// **Note**: Placeholder using approximate offset-based calculation. Real implementation
-/// pending full skparagraph API integration.
-pub fn get_selection_rects(
-    _paragraph: &Paragraph,
-    range: SelectionRange_pal,
-) -> Vec<SelectionRect_pal> {
-    if range.is_empty() {
-        return vec![];
-    }
+/// Get the word boundary range at a cursor position (for double-click select).
+pub fn word_range_at(
+    cache: &ParagraphCache_pal,
+    pos: &CursorPosition_pal,
+) -> Option<SelectionRange_pal> {
+    let entry = cache.entry(pos.entry_index)?;
+    let text = &entry.plain_text;
+    let offset = pos.offset_in_paragraph.min(text.len());
 
-    const CHAR_WIDTH: f32 = 8.4;
-    const MIN_WIDTH: f32 = 2.0;
-    const HEIGHT: f32 = 20.0;
+    // Find word boundaries by scanning for non-alphanumeric characters
+    let bytes = text.as_bytes();
 
-    let start_x = range.start as f32 * CHAR_WIDTH;
-    let end_x = range.end as f32 * CHAR_WIDTH;
-    let width = (end_x - start_x).max(MIN_WIDTH);
+    let start = (0..offset)
+        .rev()
+        .find(|&i| !bytes[i].is_ascii_alphanumeric() && bytes[i] != b'_')
+        .map(|i| i + 1)
+        .unwrap_or(0);
 
-    vec![SelectionRect_pal {
-        x: start_x,
-        y: 0.0,
-        width,
-        height: HEIGHT,
-    }]
+    let end = (offset..text.len())
+        .find(|&i| !bytes[i].is_ascii_alphanumeric() && bytes[i] != b'_')
+        .unwrap_or(text.len());
+
+    Some(SelectionRange_pal::new(
+        CursorPosition_pal {
+            entry_index: pos.entry_index,
+            offset_in_paragraph: start,
+        },
+        CursorPosition_pal {
+            entry_index: pos.entry_index,
+            offset_in_paragraph: end,
+        },
+    ))
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::core::document::Document_core;
 
     #[test]
-    fn test_selection_range_empty() {
-        let range = SelectionRange::new(5, 5);
-        assert!(range.is_empty());
-        assert_eq!(range.len(), 0);
+    fn test_empty_selection() {
+        let pos = CursorPosition_pal {
+            entry_index: 0,
+            offset_in_paragraph: 5,
+        };
+        let sel = SelectionRange_pal::new(pos, pos);
+        assert!(sel.is_empty());
     }
 
     #[test]
-    fn test_selection_range_order() {
-        let range1 = SelectionRange::new(5, 10);
-        let range2 = SelectionRange::new(10, 5);
-        assert_eq!(range1.start, range2.start);
-        assert_eq!(range1.end, range2.end);
+    fn test_selection_rects_basic() {
+        let doc = Document_core::from_markdown("Hello World\n");
+        let cache = ParagraphCache_pal::rebuild(&doc.blocks, &doc.to_markdown(), 800.0);
+        let sel = SelectionRange_pal::new(
+            CursorPosition_pal {
+                entry_index: 0,
+                offset_in_paragraph: 0,
+            },
+            CursorPosition_pal {
+                entry_index: 0,
+                offset_in_paragraph: 5,
+            },
+        );
+        let rects = selection_rects(&cache, &sel);
+        assert!(!rects.is_empty());
+        assert!(rects[0].width > 0.0);
     }
 
     #[test]
-    fn test_selection_range_len() {
-        let range = SelectionRange::new(5, 15);
-        assert_eq!(range.len(), 10);
+    fn test_word_range() {
+        let doc = Document_core::from_markdown("Hello World\n");
+        let cache = ParagraphCache_pal::rebuild(&doc.blocks, &doc.to_markdown(), 800.0);
+        let pos = CursorPosition_pal {
+            entry_index: 0,
+            offset_in_paragraph: 2, // inside "Hello"
+        };
+        let range = word_range_at(&cache, &pos).unwrap();
+        assert_eq!(range.anchor.offset_in_paragraph, 0);
+        assert_eq!(range.head.offset_in_paragraph, 5);
     }
 }

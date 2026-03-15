@@ -1,21 +1,23 @@
 // YAML frontmatter parsing and serialization.
 
-use super::Frontmatter;
+use crate::shared::sizes::{FRONTMATTER_DELIM, FRONTMATTER_DELIM_LEN};
+
+use crate::shared::document_types_x::Frontmatter_x as Frontmatter;
 
 /// Extract frontmatter from a Markdown string.
 /// Returns (Option<Frontmatter>, body_without_frontmatter).
 pub fn extract(input: &str) -> (Option<Frontmatter>, &str) {
-    if !input.starts_with("---") {
+    if !input.starts_with(FRONTMATTER_DELIM) {
         return (None, input);
     }
 
     // Find the closing --- delimiter (must be on its own line).
-    let after_opening = &input[3..];
+    let after_opening = &input[FRONTMATTER_DELIM_LEN..];
     let after_opening = after_opening.strip_prefix('\n').unwrap_or(after_opening);
 
     if let Some(end_pos) = find_closing_delimiter(after_opening) {
         let raw = &after_opening[..end_pos];
-        let rest_start = end_pos + 3; // skip closing ---
+        let rest_start = end_pos + FRONTMATTER_DELIM_LEN;
         let rest = &after_opening[rest_start..];
         let rest = rest.strip_prefix('\n').unwrap_or(rest);
 
@@ -26,7 +28,6 @@ pub fn extract(input: &str) -> (Option<Frontmatter>, &str) {
             rest,
         )
     } else {
-        // No closing delimiter found — treat entire input as body.
         (None, input)
     }
 }
@@ -35,10 +36,10 @@ pub fn extract(input: &str) -> (Option<Frontmatter>, &str) {
 fn find_closing_delimiter(input: &str) -> Option<usize> {
     let mut pos = 0;
     for line in input.lines() {
-        if line.trim() == "---" {
+        if line.trim() == FRONTMATTER_DELIM {
             return Some(pos);
         }
-        pos += line.len() + 1; // +1 for newline
+        pos += line.len() + 1;
     }
     None
 }

@@ -1,6 +1,7 @@
 [rustscanners]
 enabled = true
 deny = false                  # true = cargo build fails on violations
+nesting_limit = 8             # max nesting depth before flagging
 
 # Toggle individual scanners
 magic_numbers = true          # integers >= 2, floats except 0.0/1.0

@@ -1,12 +1,19 @@
-// Shared struct types for the rich text editor
-
-// A styled text span — absolutely positioned in the editor area.
+/// Shared struct types for the rich text editor.
+///
+/// A styled text span placed at an absolute position in the editor area.
 export struct RichToken {
+    /// Token text payload.
     text: string,
+    /// Text color for syntax highlighting.
     token-color: color,
+    /// Bold style toggle.
     bold: bool,
+    /// Italic style toggle.
     italic: bool,
+    /// Font size in logical pixels.
     font-size: float,
+    /// Zero-based visual line index.
     line-idx: int,
+    /// Horizontal offset in monospace character units.
     x-offset: float,
 }
