@@ -1,24 +1,11 @@
-/// Rich text editor — GUI mode or MCP server mode.
+// Rich text editor — GUI mode or MCP server mode.
 
 slint::include_modules!();
 
-use rich_text_editor::core::document::Document;
-use rich_text_editor::pal::{build_paragraphs, build_renderable_paragraphs, cursor, selection};
-use rich_text_editor::render;
-use std::sync::{Arc, Mutex};
+use rich_text_editor::adapter::editor_app_adp::EditorApp_adp;
+use rich_text_editor::shared::sizes::SCROLL_FACTOR;
 use std::cell::RefCell;
-use std::path::PathBuf;
-
-/// Editor canvas width in pixels
-const EDITOR_WIDTH: f32 = 800.0;
-/// Editor canvas height in pixels
-const EDITOR_HEIGHT: f32 = 500.0;
-/// Line height in pixels (for coordinate-to-offset calculation)
-const LINE_HEIGHT: f32 = 28.0;
-/// Character width in pixels (for coordinate-to-offset calculation)
-const CHAR_WIDTH: f32 = 8.4;
-/// Characters per line (for offset calculation)
-const CHARS_PER_LINE: usize = 40;
+use std::rc::Rc;
 
 /// Sample Markdown for initial display.
 const SAMPLE_MD: &str = "\
@@ -39,65 +26,51 @@ Here is some `inline code` in a paragraph.
 [Visit example](https://example.com)
 ";
 
-/// Run the editor in GUI mode with Slint UI.
-fn run_gui() -> anyhow::Result<()> {
-    let ui = AppWindow::new()?;
-
-    // Parse sample markdown
-    let doc = Document::from_markdown(SAMPLE_MD);
-
-    // Build renderable Skia paragraphs (actual Paragraph objects)
-    let renderable_paragraphs = build_renderable_paragraphs(&doc, EDITOR_WIDTH)?;
-
-    // Also get metadata for UI display
-    let metadata = build_paragraphs(&doc, EDITOR_WIDTH)?;
-
-    // Render paragraphs to PNG file
-    let temp_render_path = PathBuf::from(std::env::temp_dir()).join("editor-render.png");
-    render::render_paragraphs_to_file(&renderable_paragraphs, EDITOR_WIDTH, EDITOR_HEIGHT, &temp_render_path)?;
-
-    // Display rendered content in UI (pass file path as string)
-    let rendered_image = slint::Image::load_from_path(&temp_render_path)?;
-    ui.set_rendered_content(rendered_image);
-    ui.set_line_count(metadata.len() as i32);
-
-    // R4: Setup selection state tracking (RefCell for interior mutability in callbacks)
-    let selection_state = RefCell::new(Option::<selection::SelectionRange_pal>::None);
-
-    // Setup editor click handler for cursor positioning (R3) and selection (R4)
-    let para_count = renderable_paragraphs.len() as i32;
-    ui.on_editor_clicked(move |x, y| {
-        // R3: Map click coordinates to document offset
-        let line = (y / LINE_HEIGHT).floor() as usize;
-        let col = (x / CHAR_WIDTH).floor() as usize;
-        let offset = line * CHARS_PER_LINE + col;
-
-        eprintln!("Click at ({}, {}) → offset={}", x, y, offset);
-        eprintln!("  Paragraphs: {}", para_count);
-
-        // R4: Start selection from click position
-        // (Full drag-select would track mouse move events)
-        *selection_state.borrow_mut() = Some(selection::SelectionRange_pal::new(offset, offset));
-    });
-
-    ui.set_cursor_line(0);
-    ui.set_cursor_col(0);
-
-    ui.run()?;
-    Ok(())
+/// Update the UI after state changes.
+fn sync_ui(ui: &AppWindow, app_ref: &EditorApp_adp) {
+    ui.set_rendered_content(app_ref.render_frame());
+    let (line, col) = app_ref.cursor_line_col();
+    ui.set_cursor_line(line);
+    ui.set_cursor_col(col);
 }
 
-/// Run the editor in MCP server mode (headless).
-async fn run_mcp() -> anyhow::Result<()> {
-    tracing_subscriber::fmt()
-        .with_writer(std::io::stderr)
-        .with_ansi(false)
-        .init();
+/// Wire all Slint callbacks to the shared editor app state.
+fn wire_callbacks(ui: &AppWindow, app: &Rc<RefCell<EditorApp_adp>>) {
+    {
+        let app_clone = Rc::clone(app);
+        let ui_weak = ui.as_weak();
+        ui.on_editor_clicked(move |x, y| {
+            let mut app_ref = app_clone.borrow_mut();
+            app_ref.handle_click(x, y);
+            if let Some(ui) = ui_weak.upgrade() { sync_ui(&ui, &app_ref); }
+        });
+    }
 
-    // MCP server stub — implementation blocked on R1 completion
-    eprintln!("MCP server mode not yet implemented");
+    {
+        let app_clone = Rc::clone(app);
+        let ui_weak = ui.as_weak();
+        ui.on_editor_key_pressed(move |key, shift, ctrl, alt| {
+            let mut app_ref = app_clone.borrow_mut();
+            let consumed = app_ref.handle_key(&key, shift, ctrl, alt);
+            if consumed {
+                if let Some(ui) = ui_weak.upgrade() { sync_ui(&ui, &app_ref); }
+            }
+            consumed
+        });
+    }
 
-    Ok(())
+    {
+        let app_clone = Rc::clone(app);
+        let ui_weak = ui.as_weak();
+        ui.on_editor_scroll(move |delta_y| {
+            let mut app_ref = app_clone.borrow_mut();
+            app_ref.scroll_y -= delta_y * SCROLL_FACTOR;
+            app_ref.clamp_scroll();
+            if let Some(ui) = ui_weak.upgrade() {
+                ui.set_rendered_content(app_ref.render_frame());
+            }
+        });
+    }
 }
 
 #[tokio::main]
@@ -105,8 +78,19 @@ async fn main() -> anyhow::Result<()> {
     let args: Vec<String> = std::env::args().collect();
 
     if args.contains(&"--mcp".to_string()) {
-        run_mcp().await
-    } else {
-        run_gui()
+        tracing_subscriber::fmt()
+            .with_writer(std::io::stderr)
+            .with_ansi(false)
+            .init();
+        eprintln!("MCP server mode not yet implemented");
+        return Ok(());
     }
+
+    let ui = AppWindow::new()?;
+    // Rc: shared between Slint callback closures (single-threaded UI).
+    let app = Rc::new(RefCell::new(EditorApp_adp::new(SAMPLE_MD)));
+    sync_ui(&ui, &app.borrow());
+    wire_callbacks(&ui, &app);
+    ui.run()?;
+    Ok(())
 }
