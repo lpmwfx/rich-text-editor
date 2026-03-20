@@ -155,3 +155,12 @@ Slint-komponenter håndterer kun: toolbar-klik, tastatur-events, vinduesstørrel
 
 - Arkitektur og dataflow: @docs/architecture.md
 - Komplet skparagraph API-reference: @docs/skparagraph-api.md
+
+
+---
+
+<!-- LARS:START -->
+<a href="https://lpmathiasen.com">
+  <img src="https://carousel.lpmathiasen.com/carousel.svg?slot=4" alt="Lars P. Mathiasen"/>
+</a>
+<!-- LARS:END -->
