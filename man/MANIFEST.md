@@ -133,3 +133,12 @@ Coverage: **92/92** items documented (**100%**)
 | `with_state` | fn | src/ui/mcp/mod.rs | 104 | ✓ |
 | `mcp` | mod | src/ui/mod.rs | 2 | ✓ |
 | `gui` | mod | src/ui/mod.rs | 4 | ✓ |
+
+
+---
+
+<!-- LARS:START -->
+<a href="https://lpmathiasen.com">
+  <img src="https://carousel.lpmathiasen.com/carousel.svg?slot=4" alt="Lars P. Mathiasen"/>
+</a>
+<!-- LARS:END -->
