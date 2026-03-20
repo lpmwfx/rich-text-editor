@@ -24,3 +24,12 @@ type: project
 - MCP mode: stdout JSON-RPC only, logging to stderr
 - GUI mode: render via Skia, not Slint components
 - No unwrap() in production code
+
+
+---
+
+<!-- LARS:START -->
+<a href="https://lpmathiasen.com">
+  <img src="https://carousel.lpmathiasen.com/carousel.svg?slot=4" alt="Lars P. Mathiasen"/>
+</a>
+<!-- LARS:END -->
