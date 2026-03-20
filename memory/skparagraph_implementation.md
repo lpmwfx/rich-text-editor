@@ -59,3 +59,12 @@ SkiaRenderer::paint()
 - sudo enabled ✓
 - Using same skia-safe version (0.90) as slint backend
 - Cross-platform ready once Skia builds on Mac/Linux
+
+
+---
+
+<!-- LARS:START -->
+<a href="https://lpmathiasen.com">
+  <img src="https://carousel.lpmathiasen.com/carousel.svg?slot=4" alt="Lars P. Mathiasen"/>
+</a>
+<!-- LARS:END -->
